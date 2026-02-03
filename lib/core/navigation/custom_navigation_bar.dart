@@ -11,6 +11,7 @@ class CustomNavigationBar extends StatefulWidget {
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
   late PageController controller;
+
   List<BottomNavigationBarItem> items = [
     const BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.home),
@@ -21,8 +22,8 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
       label: "Cart",
     ),
     const BottomNavigationBarItem(
-      icon: Icon(CupertinoIcons.clock),
-      label: "History",
+      icon: Icon(Icons.local_restaurant_outlined),
+      label: "Orders",
     ),
     const BottomNavigationBarItem(
       icon: Icon(CupertinoIcons.person),
@@ -41,45 +42,52 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: AppColors.kPrimaryColor,
-        items: items,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: currentIndex,
-        fixedColor: AppColors.kPrimaryColor,
-        selectedIconTheme: const IconThemeData(
-          color: AppColors.kWhiteColor,
-          size: 30,
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: const BoxDecoration(
+          color: AppColors.kPrimaryColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
         ),
-        selectedLabelStyle: const TextStyle(
-          color: AppColors.kWhiteColor,
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
+        child: BottomNavigationBar(
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          items: items,
+          type: BottomNavigationBarType.fixed,
+          currentIndex: currentIndex,
+          selectedIconTheme: const IconThemeData(
+            color: AppColors.kWhiteColor,
+            size: 35,
+          ),
+          selectedItemColor: AppColors.kWhiteColor,
+          selectedLabelStyle: const TextStyle(
+            color: AppColors.kWhiteColor,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+          unselectedIconTheme: const IconThemeData(
+            color: AppColors.kGreyColor,
+            size: 25,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            color: AppColors.kGreyColor,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+          unselectedItemColor: Colors.transparent,
+
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+              controller.jumpToPage(index);
+            });
+          },
         ),
-        unselectedIconTheme: const IconThemeData(
-          color: AppColors.kGreyColor,
-          size: 20,
-        ),
-        unselectedLabelStyle: const TextStyle(
-          color: AppColors.kGreyColor,
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-        ),
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-            controller.jumpToPage(index);
-          });
-        },
       ),
 
-      body: PageView.builder(
-        itemCount: items.length,
-        controller: controller,
-        itemBuilder: (context, index) {
-          return Container(color: Colors.red);
-        },
-      ),
+      body: PageView(controller: controller),
     );
   }
 }
