@@ -15,7 +15,7 @@ class SplashView extends StatelessWidget {
         children: [
           heightSpace(200),
           SvgPicture.asset(AppAssets.logoHungry),
-          Spacer(),
+          const Spacer(),
           Image.asset(AppAssets.splashImage),
         ],
       ),

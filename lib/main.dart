@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hungry_app/splash_view.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hungry_app/core/navigation/custom_navigation_bar.dart';
+import 'package:hungry_app/core/styles/colors/app_colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +16,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Hungry App',
-      home: const SplashView(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: AppColors.kWhiteColor,
+        fontFamily: GoogleFonts.roboto().fontFamily,
+      ),
+      home: const CustomNavigationBar(),
     );
   }
 }
