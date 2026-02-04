@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
+import 'package:hungry_app/features/cart/view/cart_view.dart';
+import 'package:hungry_app/features/checkout/view/checkout_view.dart';
+import 'package:hungry_app/features/home/view/home_view.dart';
+import 'package:hungry_app/features/profile/view/profile_view.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({super.key});
@@ -31,6 +35,12 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     ),
   ];
 
+  List<Widget> pages = [
+    const HomeView(),
+    const CartView(),
+    const CheckOutView(),
+    const ProfileView(),
+  ];
   int currentIndex = 0;
 
   @override
@@ -59,23 +69,19 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           currentIndex: currentIndex,
           selectedIconTheme: const IconThemeData(
             color: AppColors.kWhiteColor,
-            size: 35,
+            size: 25,
           ),
           selectedItemColor: AppColors.kWhiteColor,
           selectedLabelStyle: const TextStyle(
             color: AppColors.kWhiteColor,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
           ),
           unselectedIconTheme: const IconThemeData(
             color: AppColors.kGreyColor,
-            size: 25,
+            size: 20,
           ),
-          unselectedLabelStyle: const TextStyle(
-            color: AppColors.kGreyColor,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          
           unselectedItemColor: Colors.transparent,
 
           onTap: (index) {
@@ -87,7 +93,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         ),
       ),
 
-      body: PageView(controller: controller),
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: controller,
+        children: pages,
+      ),
     );
   }
 }

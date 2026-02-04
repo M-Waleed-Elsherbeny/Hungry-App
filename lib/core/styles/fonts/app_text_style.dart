@@ -27,9 +27,19 @@ class AppTextStyle {
     fontSize: 14,
     fontWeight: FontWeight.w600,
   );
+  static const TextStyle textWhite16W500 = TextStyle(
+    color: AppColors.kWhiteColor,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+  );
   static const TextStyle textWhite14W400 = TextStyle(
     color: AppColors.kWhiteColor,
     fontSize: 14,
     fontWeight: FontWeight.w400,
+  );
+  static const TextStyle textGrey18W500 = TextStyle(
+    color: AppColors.kGreyColor,
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
   );
 }
