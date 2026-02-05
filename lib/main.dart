@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: AppColors.kWhiteColor,
         fontFamily: GoogleFonts.roboto().fontFamily,
+        appBarTheme: const AppBarTheme(backgroundColor: AppColors.kWhiteColor),
       ),
       home: const CustomNavigationBar(),
     );

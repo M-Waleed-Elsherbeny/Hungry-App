@@ -7,6 +7,11 @@ class AppTextStyle {
     fontSize: 20,
     fontWeight: FontWeight.bold,
   );
+  static const TextStyle textGreen18W500 = TextStyle(
+    color: AppColors.kPrimaryColor,
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+  );
   static const TextStyle textBrown16W600 = TextStyle(
     color: AppColors.kBrownColor,
     fontSize: 16,

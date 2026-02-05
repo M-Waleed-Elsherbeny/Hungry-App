@@ -25,12 +25,9 @@ class HomeView extends StatelessWidget {
               // Search Bar
               const SearchBarView(),
               heightSpace(deviceHeight * 0.03),
-
               // Categories
               const FoodCategories(),
-
               heightSpace(deviceHeight * 0.03),
-
               // Food Items
               const CardGridView(),
             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/features/home/widgets/card_details_view.dart';
+import 'package:hungry_app/features/products/view/product_details_view.dart';
 
 class CardGridView extends StatelessWidget {
   const CardGridView({super.key});
@@ -19,11 +20,19 @@ class CardGridView extends StatelessWidget {
       ),
       itemCount: 10,
       itemBuilder: (_, index) {
-        return const CardDetailsView(
-          image: AppAssets.cheeseBeefBurger,
-          title: "Cheese Beef Burger",
-          subtitle: "Wendy's Burger",
-          rate: "4.5",
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ProductDetailsView()),
+            );
+          },
+          child: const CardDetailsView(
+            image: AppAssets.cheeseBeefBurger,
+            title: "Cheese Beef Burger",
+            subtitle: "Wendy's Burger",
+            rate: "4.5",
+          ),
         );
       },
     );
