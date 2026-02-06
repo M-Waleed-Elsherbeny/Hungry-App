@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
 import 'package:hungry_app/features/cart/widgets/add_and_minus.dart';
@@ -11,10 +10,11 @@ class CustomAddRemoveButtons extends StatelessWidget {
     required this.onTopRemoveButton,
     required this.onTapAddButton,
     required this.onTapMinusButton,
-    required this.increaseValue,
+    required this.increaseValue, this.index,
   });
   final VoidCallback onTopRemoveButton, onTapAddButton, onTapMinusButton;
   final int increaseValue;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {

@@ -93,6 +93,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
               ),
 
               heightSpace(deviceHeight * 0.01),
+              // Total Section
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.05),
                 child: Row(
