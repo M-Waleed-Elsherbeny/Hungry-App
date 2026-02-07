@@ -8,15 +8,17 @@ class CardGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceHeight = MediaQuery.of(context).size.height;
     return GridView.builder(
       padding: EdgeInsets.zero,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 0.75,
+        crossAxisSpacing: deviceWidth * 0.02,
+        mainAxisSpacing: deviceHeight * 0.02,
+        childAspectRatio: deviceWidth / (deviceHeight * 0.55),
       ),
       itemCount: 10,
       itemBuilder: (_, index) {

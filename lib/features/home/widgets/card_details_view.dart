@@ -24,7 +24,7 @@ class CardDetailsView extends StatelessWidget {
       color: AppColors.kWhiteColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: EdgeInsets.only(left: deviceWidth * 0.03),
+        padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.03),
         child: Column(
           children: [
             Image.asset(image, width: deviceWidth * 0.3),
@@ -36,19 +36,20 @@ class CardDetailsView extends StatelessWidget {
                 heightSpace(deviceHeight * 0.015),
                 Row(
                   children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Icon(
                         CupertinoIcons.star_fill,
                         color: Colors.amber,
+                        size: 20,
                       ),
                     ),
+                    widthSpace(deviceWidth * 0.01),
                     Text(rate, style: AppTextStyle.textBrown14W400),
                     const Spacer(),
-                    IconButton(
-                      onPressed: () {},
-
-                      icon: const Icon(
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Icon(
                         CupertinoIcons.heart_fill,
                         color: AppColors.kRedColor,
                       ),
