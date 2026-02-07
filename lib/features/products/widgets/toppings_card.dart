@@ -45,16 +45,21 @@ class ToppingsCard extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Text(title, style: AppTextStyle.textWhite14W400),
+                      Expanded(
+                        child: Text(title, style: AppTextStyle.textWhite14W400),
+                      ),
                       const Spacer(),
-                      InkWell(
-                        onTap: onTap,
-                        child: CircleAvatar(
-                          radius: deviceHeight * 0.015,
-                          backgroundColor: AppColors.kRedColor,
-                          child: const Icon(
-                            Icons.add_outlined,
-                            color: AppColors.kWhiteColor,
+                      Expanded(
+                        child: InkWell(
+                          onTap: onTap,
+                          child: CircleAvatar(
+                            radius: deviceHeight * 0.015,
+                            backgroundColor: AppColors.kRedColor,
+                            child: const Icon(
+                              Icons.add_outlined,
+                              size: 15,
+                              color: AppColors.kWhiteColor,
+                            ),
                           ),
                         ),
                       ),
