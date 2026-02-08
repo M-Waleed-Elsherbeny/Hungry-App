@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/features/cart/view/cart_view.dart';
-import 'package:hungry_app/features/checkout/view/checkout_view.dart';
 import 'package:hungry_app/features/home/view/home_view.dart';
+import 'package:hungry_app/features/orders/view/orders_view.dart';
 import 'package:hungry_app/features/profile/view/profile_view.dart';
 
 class CustomNavigationBar extends StatefulWidget {
@@ -38,7 +38,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   List<Widget> pages = [
     const HomeView(),
     const CartView(),
-    const CheckOutView(),
+    const OrderView(),
     const ProfileView(),
   ];
   int currentIndex = 0;
