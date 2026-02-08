@@ -20,6 +20,12 @@ class AppTextStyle {
     fontWeight: FontWeight.w600,
     overflow: TextOverflow.ellipsis,
   );
+  static const TextStyle textBrown18W700 = TextStyle(
+    color: AppColors.kBrownColor,
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    overflow: TextOverflow.ellipsis,
+  );
   static const TextStyle textBrown16W400 = TextStyle(
     color: AppColors.kBrownColor,
     fontSize: 16,

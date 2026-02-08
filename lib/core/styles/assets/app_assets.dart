@@ -2,6 +2,7 @@ class AppAssets {
   // Paths
   static const String imagePath = 'assets/images';
   static const String svgPath = 'assets/svg';
+  static const String iconPath = 'assets/icons';
 
   // Splash Screen
   static const String splashImage = '$imagePath/splash_image.png';
@@ -20,5 +21,9 @@ class AppAssets {
   static const String mushroomBurger = '$imagePath/mushroom_burger.png';
   static const String onion = '$imagePath/onion.png';
   static const String tomato = '$imagePath/tomato.png';
+
+  // icons
+  static const String cashOnDelivery = '$iconPath/cash.png';
+  static const String visaMethod = '$iconPath/visa.png';
   
 }
