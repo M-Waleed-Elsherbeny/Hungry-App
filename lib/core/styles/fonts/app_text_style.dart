@@ -62,4 +62,10 @@ class AppTextStyle {
     fontWeight: FontWeight.w500,
     overflow: TextOverflow.ellipsis,
   );
+  static const TextStyle textGrey16W400 = TextStyle(
+    color: AppColors.kGreyColor,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    overflow: TextOverflow.ellipsis,
+  );
 }

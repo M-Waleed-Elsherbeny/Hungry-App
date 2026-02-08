@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hungry_app/core/components/custom_button.dart';
+import 'package:hungry_app/core/components/custom_total_with_button.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
-import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
-import 'package:hungry_app/core/utils/spacer.dart';
 import 'package:hungry_app/features/cart/widgets/custom_cart_card.dart';
 import 'package:hungry_app/features/checkout/view/checkout_view.dart';
 
@@ -61,43 +59,15 @@ class _CartViewState extends State<CartView> {
         ),
       ),
       // Total Section
-      bottomSheet: Container(
-        width: double.infinity,
-        height: deviceHeight * 0.1,
-        decoration: const BoxDecoration(
-          color: AppColors.kLightWhiteColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        padding: EdgeInsets.symmetric(
-          vertical: deviceHeight * 0.01,
-          horizontal: deviceWidth * 0.05,
-        ),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text("Total", style: AppTextStyle.textBrown16W600),
-                heightSpace(deviceHeight * 0.01),
-                const Text("\$ 18.99", style: AppTextStyle.textGreen20WBold),
-              ],
-            ),
-            const Spacer(),
-            CustomButton(
-              title: "Checkout",
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const CheckOutView()),
-                );
-              },
-            ),
-            heightSpace(deviceHeight * 0.1),
-          ],
-        ),
+      bottomSheet: CustomTotalWithButton(
+        totalPrice: "18.99",
+        buttonTitle: "Checkout",
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const CheckOutView()),
+          );
+        },
       ),
     );
   }
