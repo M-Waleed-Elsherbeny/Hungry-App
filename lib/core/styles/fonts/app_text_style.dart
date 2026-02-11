@@ -56,6 +56,12 @@ class AppTextStyle {
     fontWeight: FontWeight.w400,
     overflow: TextOverflow.ellipsis,
   );
+  static const TextStyle textWhite12W500 = TextStyle(
+    color: AppColors.kWhiteColor,
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    overflow: TextOverflow.ellipsis,
+  );
   static const TextStyle textGrey18W500 = TextStyle(
     color: AppColors.kGreyColor,
     fontSize: 18,

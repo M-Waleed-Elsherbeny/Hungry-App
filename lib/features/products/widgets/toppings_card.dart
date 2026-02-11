@@ -21,7 +21,7 @@ class ToppingsCard extends StatelessWidget {
         Stack(
           children: [
             Container(
-              width: deviceWidth * 0.25,
+              width: deviceWidth * 0.30,
               height: deviceHeight * 0.15,
               decoration: BoxDecoration(
                 color: AppColors.kWhiteColor,
@@ -31,29 +31,30 @@ class ToppingsCard extends StatelessWidget {
             Positioned(
               bottom: 0,
               child: Container(
-                width: deviceWidth * 0.25,
+                width: deviceWidth * 0.30,
                 height: deviceHeight * 0.15,
                 decoration: BoxDecoration(
                   color: AppColors.kBrownColor,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(16),
                 ),
                 alignment: Alignment.bottomLeft,
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: deviceWidth * 0.02,
-                    vertical: deviceHeight * 0.01,
+                  padding: EdgeInsets.only(
+                    bottom: deviceHeight * 0.01,
+                    left: deviceWidth * 0.02,
                   ),
                   child: Row(
                     children: [
                       Expanded(
-                        child: Text(title, style: AppTextStyle.textWhite14W400),
+                        flex: 2,
+                        child: Text(title, style: AppTextStyle.textWhite12W500),
                       ),
                       const Spacer(),
                       Expanded(
                         child: InkWell(
                           onTap: onTap,
                           child: CircleAvatar(
-                            radius: deviceHeight * 0.015,
+                            radius: deviceHeight * 0.010,
                             backgroundColor: AppColors.kRedColor,
                             child: const Icon(
                               Icons.add_outlined,
@@ -71,7 +72,7 @@ class ToppingsCard extends StatelessWidget {
             Positioned(
               top: 0,
               child: Container(
-                width: deviceWidth * 0.25,
+                width: deviceWidth * 0.30,
                 height: deviceHeight * 0.1,
                 decoration: BoxDecoration(
                   color: AppColors.kWhiteColor,
