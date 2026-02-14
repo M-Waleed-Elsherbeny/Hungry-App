@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
+import 'package:hungry_app/core/navigation/router/app_routes_config.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
-import 'package:hungry_app/splash_view.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 
@@ -18,10 +25,12 @@ class MyApp extends StatelessWidget {
       title: 'Hungry App',
       theme: ThemeData(
         scaffoldBackgroundColor: AppColors.kWhiteColor,
+        splashColor: Colors.transparent,
         fontFamily: GoogleFonts.roboto().fontFamily,
         appBarTheme: const AppBarTheme(backgroundColor: AppColors.kWhiteColor),
       ),
-      home: const SplashView(),
+      initialRoute: AppRouterPaths.splashScreen,
+      onGenerateRoute: AppRoutesConfig().onGenerateRoute,
     );
   }
 }

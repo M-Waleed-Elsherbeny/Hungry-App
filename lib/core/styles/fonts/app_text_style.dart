@@ -38,6 +38,13 @@ class AppTextStyle {
     fontWeight: FontWeight.w400,
     overflow: TextOverflow.ellipsis,
   );
+  static const TextStyle textWhite20WBold = TextStyle(
+    color: AppColors.kWhiteColor,
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    
+    overflow: TextOverflow.ellipsis,
+  );
   static const TextStyle textWhite14W600 = TextStyle(
     color: AppColors.kWhiteColor,
     fontSize: 14,

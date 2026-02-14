@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hungry_app/core/navigation/custom_navigation_bar.dart';
+import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
@@ -22,9 +22,9 @@ class _SplashViewState extends State<SplashView>
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.push(
+      Navigator.pushReplacementNamed(
         context,
-        MaterialPageRoute(builder: (_) => const CustomNavigationBar()),
+        AppRouterPaths.bottomNavigationBar,
       );
     });
 

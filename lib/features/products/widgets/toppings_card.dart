@@ -42,11 +42,12 @@ class ToppingsCard extends StatelessWidget {
                   padding: EdgeInsets.only(
                     bottom: deviceHeight * 0.01,
                     left: deviceWidth * 0.02,
+                    right: deviceWidth * 0.01,
                   ),
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 2,
+                        flex: 3,
                         child: Text(title, style: AppTextStyle.textWhite12W500),
                       ),
                       const Spacer(),
@@ -82,7 +83,7 @@ class ToppingsCard extends StatelessWidget {
                   ),
                   image: DecorationImage(
                     image: AssetImage(image),
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                     filterQuality: FilterQuality.high,
                   ),
                 ),
