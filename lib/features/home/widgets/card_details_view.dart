@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
@@ -27,7 +28,17 @@ class CardDetailsView extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.03),
         child: Column(
           children: [
-            Image.asset(image, width: deviceWidth * 0.3),
+            Stack(
+              children: [
+                Image.asset(image, width: deviceWidth * 0.25),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Image.asset(AppAssets.shadow),
+                ),
+              ],
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

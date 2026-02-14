@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/components/custom_back_button.dart';
-import 'package:hungry_app/core/components/custom_button.dart';
+import 'package:hungry_app/core/components/custom_total_with_button.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
@@ -93,34 +93,17 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
               ),
 
               heightSpace(deviceHeight * 0.01),
+
               // Total Section
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.05),
-                child: Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Total",
-                          style: AppTextStyle.textBrown16W600,
-                        ),
-                        heightSpace(deviceHeight * 0.01),
-                        const Text(
-                          "\$ 18.99",
-                          style: AppTextStyle.textGreen20WBold,
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    CustomButton(title: "Add to Cart", onTap: () {}),
-                    heightSpace(deviceHeight * 0.2),
-                  ],
-                ),
-              ),
             ],
           ),
         ),
+      ),
+      // Total Section
+      bottomSheet: CustomTotalWithButton(
+        totalPrice: "18.99",
+        buttonTitle: "Add to Cart",
+        onTap: () {},
       ),
     );
   }

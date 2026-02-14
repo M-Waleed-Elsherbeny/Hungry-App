@@ -26,5 +26,6 @@ class AppAssets {
   static const String cashOnDelivery = '$iconPath/cash.png';
   static const String visaMethod = '$iconPath/visa.png';
   static const String success = '$iconPath/success.png';
+  static const String shadow = '$iconPath/shadow.png';
   
 }

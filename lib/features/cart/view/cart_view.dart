@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/components/custom_total_with_button.dart';
+import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/features/cart/widgets/custom_cart_card.dart';
-import 'package:hungry_app/features/checkout/view/checkout_view.dart';
 
 class CartView extends StatefulWidget {
   const CartView({super.key});
@@ -63,10 +63,7 @@ class _CartViewState extends State<CartView> {
         totalPrice: "18.99",
         buttonTitle: "Checkout",
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const CheckOutView()),
-          );
+          Navigator.pushNamed(context, AppRouterPaths.checkoutScreen);
         },
       ),
     );
