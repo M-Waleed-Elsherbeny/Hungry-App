@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
 
 class CustomOrderDetails extends StatelessWidget {
-  const CustomOrderDetails({super.key, required this.order, required this.taxes, required this.deliveryFees, required this.total});
+  const CustomOrderDetails({
+    super.key,
+    required this.order,
+    required this.taxes,
+    required this.deliveryFees,
+    required this.total,
+  });
   final String order, taxes, deliveryFees, total;
 
   @override
@@ -34,9 +41,9 @@ class CustomOrderDetails extends StatelessWidget {
 Widget checkOutWidget(title, price, {TextStyle? style}) {
   return Row(
     children: [
-      Text(title, style: style ?? AppTextStyle.textGrey18W500),
+      CustomText(text: title, textStyle: style ?? AppTextStyle.textGrey18W500),
       const Spacer(),
-      Text("\$$price", style: style ?? AppTextStyle.textGrey18W500),
+      CustomText(text: "\$$price", textStyle: style ?? AppTextStyle.textGrey18W500),
     ],
   );
 }

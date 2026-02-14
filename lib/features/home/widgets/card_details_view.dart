@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
@@ -42,8 +43,8 @@ class CardDetailsView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: AppTextStyle.textBrown16W600),
-                Text(subtitle, style: AppTextStyle.textBrown16W400),
+                CustomText(text: title, textStyle: AppTextStyle.textBrown16W600),
+                CustomText(text: subtitle, textStyle: AppTextStyle.textBrown16W400),
                 heightSpace(deviceHeight * 0.015),
                 Row(
                   children: [
@@ -56,7 +57,7 @@ class CardDetailsView extends StatelessWidget {
                       ),
                     ),
                     widthSpace(deviceWidth * 0.01),
-                    Text(rate, style: AppTextStyle.textBrown14W400),
+                    CustomText(text: rate, textStyle: AppTextStyle.textBrown14W400),
                     const Spacer(),
                     GestureDetector(
                       onTap: () {},

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
 import 'package:hungry_app/features/auth/widgets/custom_auth_button.dart';
 import 'package:hungry_app/features/auth/widgets/custom_text_form_field.dart';
@@ -59,9 +60,9 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
               ),
               heightSpace(deviceHeight * 0.02),
-              const Text(
-                "Welcome Back, Discover The Best Food!",
-                style: AppTextStyle.textBrown14W400,
+              const CustomText(
+                text: "Welcome Back, Discover The Best Food!",
+                textStyle: AppTextStyle.textBrown14W400,
               ),
               heightSpace(deviceHeight * 0.1),
               Expanded(

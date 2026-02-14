@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 
@@ -29,7 +30,10 @@ class CustomAuthButton extends StatelessWidget {
         elevation: 10,
         minimumSize: const Size(double.infinity, 50),
       ),
-      child: Text(title, style: textStyle ?? AppTextStyle.textGreen20WBold),
+      child: CustomText(
+        text: title,
+        textStyle: textStyle ?? AppTextStyle.textGreen20WBold,
+      ),
     );
   }
 }

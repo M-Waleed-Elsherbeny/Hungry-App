@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/components/custom_back_button.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/components/custom_total_with_button.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
@@ -48,7 +49,10 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Toppings", style: AppTextStyle.textBrown16W600),
+                    const CustomText(
+                      text: "Toppings",
+                      textStyle: AppTextStyle.textBrown16W600,
+                    ),
                     heightSpace(deviceHeight * 0.02),
                     SingleChildScrollView(
                       clipBehavior: Clip.none,
@@ -67,9 +71,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                       ),
                     ),
                     heightSpace(deviceHeight * 0.02),
-                    const Text(
-                      "Side Options",
-                      style: AppTextStyle.textBrown16W600,
+                    const CustomText(
+                      text: "Side Options",
+                      textStyle: AppTextStyle.textBrown16W600,
                     ),
                     heightSpace(deviceHeight * 0.02),
                     SingleChildScrollView(

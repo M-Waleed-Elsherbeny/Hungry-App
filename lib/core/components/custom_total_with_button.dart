@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/components/custom_button.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
@@ -44,9 +45,15 @@ class CustomTotalWithButton extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Total", style: AppTextStyle.textBrown16W600),
+              const CustomText(
+                text: "Total",
+                textStyle: AppTextStyle.textBrown16W600,
+              ),
               heightSpace(deviceHeight * 0.01),
-              Text("\$ $totalPrice", style: AppTextStyle.textGreen20WBold),
+              CustomText(
+                text: "\$ $totalPrice",
+                textStyle: AppTextStyle.textGreen20WBold,
+              ),
             ],
           ),
           const Spacer(),
