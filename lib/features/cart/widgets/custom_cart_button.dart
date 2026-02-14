@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 
@@ -20,7 +21,10 @@ class CustomCartButton extends StatelessWidget {
         minimumSize: Size(deviceWidth * 0.35, deviceHeight * 0.05),
         // minimumSize: const Size(150, 50),
       ),
-      child: const Text("Remove", style: AppTextStyle.textWhite16W500),
+      child: const CustomText(
+        text: "Remove",
+        textStyle: AppTextStyle.textWhite16W500,
+      ),
     );
   }
 }

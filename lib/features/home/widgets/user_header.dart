@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
@@ -26,7 +27,10 @@ class UserHeader extends StatelessWidget {
               width: deviceWidth * 0.5,
             ),
             heightSpace(deviceHeight * 0.01),
-            const Text("Hello, Mohammed", style: AppTextStyle.textGrey18W500),
+            const CustomText(
+              text: "Hello, Mohammed",
+              textStyle: AppTextStyle.textGrey18W500,
+            ),
           ],
         ),
         const Spacer(),

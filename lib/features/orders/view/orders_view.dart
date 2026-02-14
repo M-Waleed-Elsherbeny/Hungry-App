@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/components/custom_button.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
@@ -43,17 +44,17 @@ class OrderView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              "Fried Chicken Burger",
-                              style: AppTextStyle.textBrown16W600,
+                            const CustomText(
+                              text: "Fried Chicken Burger",
+                              textStyle: AppTextStyle.textBrown16W600,
                             ),
-                            const Text(
-                              "Qty: 3",
-                              style: AppTextStyle.textBrown14W400,
+                            const CustomText(
+                              text: "Qty: 3",
+                              textStyle: AppTextStyle.textBrown14W400,
                             ),
-                            const Text(
-                              "Price: 20\$",
-                              style: AppTextStyle.textBrown14W400,
+                            const CustomText(
+                              text: "Price: 20\$",
+                              textStyle: AppTextStyle.textBrown14W400,
                             ),
                             heightSpace(deviceHeight * 0.015),
                           ],

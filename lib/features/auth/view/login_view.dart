@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
 import 'package:hungry_app/features/auth/widgets/custom_auth_button.dart';
 import 'package:hungry_app/features/auth/widgets/custom_text_form_field.dart';
@@ -53,9 +54,9 @@ class _LoginViewState extends State<LoginView> {
                 ), // AppColors.kPrimaryColor,
               ),
               heightSpace(deviceHeight * 0.02),
-              Text(
-                "Welcome Back, Discover The Best Food!",
-                style: AppTextStyle.textBrown16W600.copyWith(fontSize: 14),
+              CustomText(
+                text: "Welcome Back, Discover The Best Food!",
+                textStyle: AppTextStyle.textBrown16W600.copyWith(fontSize: 14),
               ),
               heightSpace(deviceHeight * 0.06),
               Expanded(

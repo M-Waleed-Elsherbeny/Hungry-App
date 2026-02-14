@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/navigation/custom_navigation_bar.dart';
 import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
 import 'package:hungry_app/features/auth/view/login_view.dart';
@@ -33,7 +34,9 @@ class AppRoutesConfig {
           builder: (_) {
             return Scaffold(
               body: Center(
-                child: Text('No route defined for ${settings.name}'),
+                child: CustomText(
+                  text: 'No route defined for ${settings.name}',
+                ),
               ),
             );
           },

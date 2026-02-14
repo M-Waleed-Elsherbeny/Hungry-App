@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 
@@ -32,16 +33,16 @@ class CheckoutPaymentMethod extends StatelessWidget {
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       tileColor: tileColor ?? AppColors.kBrownColor,
-      title: Text(
-        paymentMethod,
-        style: isVisa
+      title: CustomText(
+        text: paymentMethod,
+        textStyle: isVisa
             ? AppTextStyle.textBrown16W600
             : AppTextStyle.textWhite16W500,
       ),
       subtitle: isVisa
-          ? const Text(
-              "3566 **** **** 1234",
-              style: AppTextStyle.textBrown14W400,
+          ? const CustomText(
+              text: "3566 **** **** 1234",
+              textStyle: AppTextStyle.textBrown14W400,
             )
           : null,
       leading: Image.asset(paymentImage, width: deviceWidth * 0.15),

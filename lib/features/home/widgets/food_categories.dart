@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 
@@ -40,9 +41,9 @@ class _FoodCategoriesState extends State<FoodCategories> {
                 borderRadius: BorderRadius.circular(10),
               ),
               alignment: Alignment.center,
-              child: Text(
-                categories[index],
-                style: currentIndex == index
+              child: CustomText(
+                text: categories[index],
+                textStyle: currentIndex == index
                     ? AppTextStyle.textWhite16W500
                     : AppTextStyle.textGrey18W500.copyWith(fontSize: 16),
               ),

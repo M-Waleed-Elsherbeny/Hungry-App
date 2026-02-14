@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/components/custom_back_button.dart';
 import 'package:hungry_app/core/components/custom_button.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/components/custom_total_with_button.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
@@ -30,9 +31,9 @@ class _CheckOutViewState extends State<CheckOutView> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Order summary",
-              style: AppTextStyle.textBrown16W600.copyWith(fontSize: 20),
+            CustomText(
+              text: "Order summary",
+              textStyle: AppTextStyle.textBrown16W600.copyWith(fontSize: 20),
             ),
             heightSpace(deviceHeight * 0.02),
 
@@ -44,9 +45,9 @@ class _CheckOutViewState extends State<CheckOutView> {
             ),
 
             heightSpace(deviceHeight * 0.05),
-            Text(
-              "Payment methods",
-              style: AppTextStyle.textBrown16W600.copyWith(fontSize: 20),
+            CustomText(
+              text: "Payment methods",
+              textStyle: AppTextStyle.textBrown16W600.copyWith(fontSize: 20),
             ),
             heightSpace(deviceHeight * 0.03),
 
@@ -82,9 +83,9 @@ class _CheckOutViewState extends State<CheckOutView> {
                 ),
 
                 Expanded(
-                  child: Text(
-                    "Save card details for future payments",
-                    style: AppTextStyle.textGrey16W400.copyWith(fontSize: 14),
+                  child: CustomText(
+                    text: "Save card details for future payments",
+                    textStyle: AppTextStyle.textGrey16W400.copyWith(fontSize: 14),
                   ),
                 ),
               ],
@@ -115,15 +116,16 @@ class _CheckOutViewState extends State<CheckOutView> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Image.asset(AppAssets.success, width: deviceWidth * 0.3),
-                      const Text(
-                        "Payment successful",
-                        style: AppTextStyle.textBrown16W600,
+                      const CustomText(
+                        text: "Payment successful",
+                        textStyle: AppTextStyle.textBrown16W600,
                       ),
                       heightSpace(deviceHeight * 0.02),
                       Expanded(
-                        child: Text(
-                          "Your payment was successful.\nA receipt for this purchase has \nbeen sent to your email.",
-                          style: AppTextStyle.textGrey16W400.copyWith(
+                        child: CustomText(
+                          text:
+                              "Your payment was successful.\nA receipt for this purchase has \nbeen sent to your email.",
+                          textStyle: AppTextStyle.textGrey16W400.copyWith(
                             fontSize: 14,
                           ),
                         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
@@ -51,8 +52,14 @@ class CustomCartCard extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: AppTextStyle.textBrown16W600),
-                      Text(description, style: AppTextStyle.textBrown14W400),
+                      CustomText(
+                        text: title,
+                        textStyle: AppTextStyle.textBrown16W600,
+                      ),
+                      CustomText(
+                        text: description,
+                        textStyle: AppTextStyle.textBrown14W400,
+                      ),
                       heightSpace(deviceHeight * 0.01),
                     ],
                   ),
@@ -69,9 +76,9 @@ class CustomCartCard extends StatelessWidget {
                       onPressed: onTapMinusButton,
                     ),
                     widthSpace(deviceWidth * 0.05),
-                    Text(
-                      quantity.toString(),
-                      style: AppTextStyle.textBrown16W600,
+                    CustomText(
+                      text: quantity.toString(),
+                      textStyle: AppTextStyle.textBrown16W600,
                     ),
                     widthSpace(deviceWidth * 0.05),
                     AddAndMinus(
