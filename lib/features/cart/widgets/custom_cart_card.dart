@@ -42,9 +42,8 @@ class CustomCartCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            SizedBox(
-              width: deviceWidth * 0.5,
-              height: deviceHeight * 0.2,
+            Flexible(
+              fit: FlexFit.tight,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

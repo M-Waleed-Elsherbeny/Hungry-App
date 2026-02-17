@@ -30,21 +30,31 @@ class CardDetailsView extends StatelessWidget {
         child: Column(
           children: [
             Stack(
+              clipBehavior: Clip.none,
               children: [
-                Image.asset(image, width: deviceWidth * 0.25),
                 Positioned(
-                  bottom: 0,
+                  bottom: -10,
                   left: 0,
                   right: 0,
-                  child: Image.asset(AppAssets.shadow),
+                  child: Image.asset(
+                    AppAssets.shadow,
+                    width: deviceWidth * 0.1,
+                  ),
                 ),
+                Center(child: Image.asset(image, width: deviceWidth * 0.25)),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomText(text: title, textStyle: AppTextStyle.textBrown16W600),
-                CustomText(text: subtitle, textStyle: AppTextStyle.textBrown16W400),
+                CustomText(
+                  text: title,
+                  textStyle: AppTextStyle.textBrown16W600,
+                ),
+                CustomText(
+                  text: subtitle,
+                  textStyle: AppTextStyle.textBrown16W400,
+                ),
                 heightSpace(deviceHeight * 0.015),
                 Row(
                   children: [
@@ -57,7 +67,10 @@ class CardDetailsView extends StatelessWidget {
                       ),
                     ),
                     widthSpace(deviceWidth * 0.01),
-                    CustomText(text: rate, textStyle: AppTextStyle.textBrown14W400),
+                    CustomText(
+                      text: rate,
+                      textStyle: AppTextStyle.textBrown14W400,
+                    ),
                     const Spacer(),
                     GestureDetector(
                       onTap: () {},

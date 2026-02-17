@@ -13,13 +13,14 @@ class CheckoutPaymentMethod extends StatelessWidget {
     this.isVisa = false,
     required this.radioGroupValue,
     required this.onChanged,
-    this.onTap,
+    this.onTap, this.activeColor,
   });
   final String paymentMethod, paymentImage, radioValue, radioGroupValue;
   final Color? tileColor;
   final bool isVisa;
   final ValueChanged<String?> onChanged;
   final VoidCallback? onTap;
+  final Color? activeColor;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class CheckoutPaymentMethod extends StatelessWidget {
       trailing: RadioGroup(
         groupValue: radioGroupValue,
         onChanged: onChanged,
-        child: Radio(value: radioValue, activeColor: AppColors.kWhiteColor),
+        child: Radio(value: radioValue, activeColor: activeColor ?? AppColors.kWhiteColor),
       ),
     );
   }

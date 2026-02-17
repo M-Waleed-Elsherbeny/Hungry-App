@@ -8,6 +8,10 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: textStyle);
+    return Text(
+      text,
+      textScaler: const TextScaler.linear(1.1),
+      style: textStyle,
+    );
   }
 }

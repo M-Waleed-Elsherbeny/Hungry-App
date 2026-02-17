@@ -17,40 +17,36 @@ class CustomProfileTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double deviceWidth = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.05),
-      child: TextField(
-        controller: controller,
-        obscureText: isPassword,
-        onTapOutside: (event) => FocusScope.of(context).unfocus(),
-        cursorColor: AppColors.kWhiteColor,
-        style: style ?? AppTextStyle.textWhite14W400,
-        cursorHeight: 20,
-        decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: AppTextStyle.textWhite16W500,
-          contentPadding: const EdgeInsets.all(15),
-          border: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: Colors.white),
-          ),
-          focusedBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: Colors.white),
-          ),
-          // enabledBorder: OutlineInputBorder(
-          //   borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          //   borderSide: BorderSide(color: Colors.white),
-          // ),
-          errorBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: AppColors.kRedColor),
-          ),
-          disabledBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-            borderSide: BorderSide(color: Colors.white),
-          ),
+    return TextField(
+      controller: controller,
+      obscureText: isPassword,
+      onTapOutside: (event) => FocusScope.of(context).unfocus(),
+      cursorColor: AppColors.kWhiteColor,
+      style: style ?? AppTextStyle.textWhite14W400,
+      cursorHeight: 20,
+      decoration: InputDecoration(
+        labelText: labelText,
+        labelStyle: AppTextStyle.textWhite16W500,
+        contentPadding: const EdgeInsets.all(15),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderSide: BorderSide(color: Colors.white),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderSide: BorderSide(color: Colors.white),
+        ),
+        // enabledBorder: OutlineInputBorder(
+        //   borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        //   borderSide: BorderSide(color: Colors.white),
+        // ),
+        errorBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderSide: BorderSide(color: AppColors.kRedColor),
+        ),
+        disabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderSide: BorderSide(color: Colors.white),
         ),
       ),
     );

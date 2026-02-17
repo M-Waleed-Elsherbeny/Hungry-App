@@ -18,7 +18,7 @@ class CardGridView extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: deviceWidth * 0.02,
         mainAxisSpacing: deviceHeight * 0.02,
-        childAspectRatio: deviceWidth / (deviceHeight * 0.5),
+        childAspectRatio: deviceWidth / (deviceHeight * 0.55),
       ),
       itemCount: 8,
       itemBuilder: (_, index) {
