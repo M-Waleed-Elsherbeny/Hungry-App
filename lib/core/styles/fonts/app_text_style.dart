@@ -14,6 +14,12 @@ class AppTextStyle {
     fontWeight: FontWeight.w500,
     overflow: TextOverflow.ellipsis,
   );
+  static const TextStyle textGreen16W500 = TextStyle(
+    color: AppColors.kPrimaryColor,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    overflow: TextOverflow.ellipsis,
+  );
   static const TextStyle textBrown16W600 = TextStyle(
     color: AppColors.kBrownColor,
     fontSize: 16,
@@ -42,7 +48,7 @@ class AppTextStyle {
     color: AppColors.kWhiteColor,
     fontSize: 20,
     fontWeight: FontWeight.bold,
-    
+
     overflow: TextOverflow.ellipsis,
   );
   static const TextStyle textWhite14W600 = TextStyle(

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hungry_app/core/components/custom_button.dart';
+import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
+import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
+import 'package:hungry_app/features/checkout/widgets/checkout_payment_method.dart';
 import 'package:hungry_app/features/profile/widgets/custom_profile_text_field.dart';
 
 class ProfileView extends StatefulWidget {
@@ -15,6 +19,7 @@ class _ProfileViewState extends State<ProfileView> {
       emailController,
       passwordController,
       deliveryAddressController;
+  String? selectedValue;
 
   @override
   void initState() {
@@ -64,13 +69,40 @@ class _ProfileViewState extends State<ProfileView> {
             labelText: "Delivery Address",
           ),
           heightSpace(deviceHeight * 0.05),
-          CustomProfileTextField(
-            controller: passwordController,
-            isPassword: true,
-            labelText: "Password 🔒",
-            style: const TextStyle(color: AppColors.kWhiteColor, fontSize: 24),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.05),
+            child: CheckoutPaymentMethod(
+              activeColor: AppColors.kPrimaryColor,
+              paymentMethod: "Debit card",
+              paymentImage: AppAssets.visaMethod,
+              radioValue: "Visa",
+              radioGroupValue: "Visa",
+              onChanged: (value) => setState(() => selectedValue = value!),
+              onTap: () => setState(() => selectedValue = "Visa"),
+              tileColor: AppColors.kWhiteColor,
+              isVisa: true,
+            ),
           ),
-          heightSpace(deviceHeight * 0.05),
+          const Spacer(),
+          Container(
+            width: deviceWidth,
+            height: deviceHeight * 0.1,
+            color: AppColors.kWhiteColor,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CustomButton(title: "Edit Profile", onTap: () {}),
+                CustomButton(
+                  backgroundColor: AppColors.kLightWhiteColor,
+                  borderColor: AppColors.kPrimaryColor,
+                  textStyle: AppTextStyle.textGreen18W500,
+                  title: "Logout",
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

@@ -28,43 +28,39 @@ class CustomCartCard extends StatelessWidget {
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
     return Card(
-      margin: EdgeInsets.only(
-        top: deviceHeight * 0.02,
-        bottom: deviceHeight * 0.02,
-      ),
+      // margin: EdgeInsets.only(
+      //   top: deviceHeight * 0.02,
+      //   bottom: deviceHeight * 0.02,
+      // ),
       color: AppColors.kWhiteColor,
       elevation: 10,
       shadowColor: AppColors.kPrimaryColor,
       child: Padding(
         padding: EdgeInsets.only(
-          right: deviceWidth * 0.02,
-          left: deviceWidth * 0.02,
+          right: deviceWidth * 0.03,
+          left: deviceWidth * 0.03,
         ),
         child: Row(
           children: [
-            SizedBox(
-              width: deviceWidth * 0.5,
-              height: deviceHeight * 0.2,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.asset(image, width: deviceWidth * 0.3),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        text: title,
-                        textStyle: AppTextStyle.textBrown16W600,
-                      ),
-                      CustomText(
-                        text: description,
-                        textStyle: AppTextStyle.textBrown14W400,
-                      ),
-                      heightSpace(deviceHeight * 0.01),
-                    ],
-                  ),
-                ],
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(image, width: deviceWidth * 0.3),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      text: title,
+                      textStyle: AppTextStyle.textBrown16W600,
+                    ),
+                    CustomText(
+                      text: description,
+                      textStyle: AppTextStyle.textBrown14W400,
+                    ),
+                    heightSpace(deviceHeight * 0.01),
+                  ],
+                ),
+              ],
             ),
             const Spacer(),
             Column(

@@ -36,21 +36,18 @@ class _CheckOutViewState extends State<CheckOutView> {
               textStyle: AppTextStyle.textBrown16W600.copyWith(fontSize: 20),
             ),
             heightSpace(deviceHeight * 0.02),
-
             const CustomOrderDetails(
               order: "16.99",
               taxes: "0.09",
               deliveryFees: "1.5",
               total: "18.59",
             ),
-
             heightSpace(deviceHeight * 0.05),
             CustomText(
               text: "Payment methods",
               textStyle: AppTextStyle.textBrown16W600.copyWith(fontSize: 20),
             ),
             heightSpace(deviceHeight * 0.03),
-
             // Cash Method
             CheckoutPaymentMethod(
               paymentMethod: "Cash on delivery",
