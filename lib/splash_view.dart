@@ -24,7 +24,7 @@ class _SplashViewState extends State<SplashView>
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(
         context,
-        AppRouterPaths.bottomNavigationBar,
+        AppRouterPaths.loginScreen,
       );
     });
 

@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
+import 'package:hungry_app/core/utils/custom_loading.dart';
+import 'package:hungry_app/core/utils/custom_snack_bar.dart';
+import 'package:hungry_app/features/auth/data/cubit/auth_cubit.dart';
+import 'package:hungry_app/features/auth/data/cubit/auth_state.dart';
 import 'package:hungry_app/features/auth/widgets/custom_auth_button.dart';
 import 'package:hungry_app/features/auth/widgets/custom_text_form_field.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
@@ -31,7 +36,12 @@ class _LoginViewState extends State<LoginView> {
   }
 
   validLogin() {
-    if (formKey.currentState!.validate()) {}
+    if (formKey.currentState!.validate()) {
+      context.read<AuthCubit>().login(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    }
   }
 
   @override
@@ -41,80 +51,105 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       backgroundColor: AppColors.kWhiteColor,
       body: SafeArea(
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              heightSpace(deviceHeight * 0.2),
-              SvgPicture.asset(
-                AppAssets.logoHungry,
-                colorFilter: const ColorFilter.mode(
-                  AppColors.kPrimaryColor,
-                  BlendMode.srcIn,
-                ), // AppColors.kPrimaryColor,
-              ),
-              heightSpace(deviceHeight * 0.02),
-              CustomText(
-                text: "Welcome Back, Discover The Best Food!",
-                textStyle: AppTextStyle.textBrown16W600.copyWith(fontSize: 14),
-              ),
-              heightSpace(deviceHeight * 0.06),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.05),
-                  decoration: const BoxDecoration(
-                    color: AppColors.kPrimaryColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
+        child: Column(
+          children: [
+            heightSpace(deviceHeight * 0.2),
+            SvgPicture.asset(
+              AppAssets.logoHungry,
+              colorFilter: const ColorFilter.mode(
+                AppColors.kPrimaryColor,
+                BlendMode.srcIn,
+              ), // AppColors.kPrimaryColor,
+            ),
+            heightSpace(deviceHeight * 0.02),
+            CustomText(
+              text: "Welcome Back, Discover The Best Food!",
+              textStyle: AppTextStyle.textBrown16W600.copyWith(fontSize: 14),
+            ),
+            heightSpace(deviceHeight * 0.06),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.05),
+                decoration: const BoxDecoration(
+                  color: AppColors.kPrimaryColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
                   ),
-                  child: Column(
-                    children: [
-                      heightSpace(deviceHeight * 0.03),
-                      CustomTextFormField(
-                        controller: emailController,
-                        fieldName: "Email",
-                        hintText: "Type your Email",
-                        prefixIcon: Icons.email,
-                      ),
-                      heightSpace(deviceHeight * 0.03),
-                      CustomTextFormField(
-                        controller: passwordController,
-                        fieldName: "Password",
-                        hintText: "Type your Password",
-                        prefixIcon: CupertinoIcons.lock_fill,
-                        suffixIcon: isPassword
-                            ? CupertinoIcons.eye
-                            : CupertinoIcons.eye_slash,
-                        isPassword: !isPassword,
-                        onTapSuffixIcon: () {
-                          setState(() {
-                            isPassword = !isPassword;
-                          });
-                        },
-                      ),
-                      heightSpace(deviceHeight * 0.05),
-                      CustomAuthButton(
-                        buttonColor: AppColors.kPrimaryColor,
-                        textStyle: AppTextStyle.textWhite20WBold,
-                        title: "Login",
-                        onTap: validLogin,
-                      ),
-                      heightSpace(deviceHeight * 0.03),
-                      CustomAuthButton(
-                        title: "Create Account?",
-                        onTap: () => Navigator.pushReplacementNamed(
-                          context,
-                          AppRouterPaths.signUpScreen,
-                        ),
-                      ),
-                    ],
+                ),
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: formKey,
+                    child: BlocConsumer<AuthCubit, AuthState>(
+                      listener: (context, state) {
+                        if (state is AuthLoginFailed) {
+                          customSnackBar(context, state.message);
+                        }
+                        if (state is AuthLoginSuccess) {
+                          customSnackBar(
+                            context,
+                            "Login Successfully",
+                            backgroundColor: AppColors.kPrimaryColor,
+                          );
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            AppRouterPaths.bottomNavigationBar,
+                            (route) => false,
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        return state is AuthLoginLoading
+                            ? customLoading()
+                            : Column(
+                                children: [
+                                  heightSpace(deviceHeight * 0.03),
+                                  CustomTextFormField(
+                                    controller: emailController,
+                                    fieldName: "Email",
+                                    hintText: "Type your Email",
+                                    prefixIcon: Icons.email,
+                                  ),
+                                  heightSpace(deviceHeight * 0.03),
+                                  CustomTextFormField(
+                                    controller: passwordController,
+                                    fieldName: "Password",
+                                    hintText: "Type your Password",
+                                    prefixIcon: CupertinoIcons.lock_fill,
+                                    suffixIcon: isPassword
+                                        ? CupertinoIcons.eye
+                                        : CupertinoIcons.eye_slash,
+                                    isPassword: !isPassword,
+                                    onTapSuffixIcon: () {
+                                      setState(() {
+                                        isPassword = !isPassword;
+                                      });
+                                    },
+                                  ),
+                                  heightSpace(deviceHeight * 0.05),
+                                  CustomAuthButton(
+                                    buttonColor: AppColors.kPrimaryColor,
+                                    textStyle: AppTextStyle.textWhite20WBold,
+                                    title: "Login",
+                                    onTap: validLogin,
+                                  ),
+                                  heightSpace(deviceHeight * 0.03),
+                                  CustomAuthButton(
+                                    title: "Create Account?",
+                                    onTap: () => Navigator.pushReplacementNamed(
+                                      context,
+                                      AppRouterPaths.signUpScreen,
+                                    ),
+                                  ),
+                                ],
+                              );
+                      },
+                    ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

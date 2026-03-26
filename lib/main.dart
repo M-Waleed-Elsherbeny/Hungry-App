@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
 import 'package:hungry_app/core/navigation/router/app_routes_config.dart';
+import 'package:hungry_app/core/services/my_bloc_observer.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 
 void main() async {
@@ -11,6 +13,7 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
