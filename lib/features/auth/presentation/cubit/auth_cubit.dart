@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hungry_app/core/networking/api_errors.dart';
 import 'package:hungry_app/core/networking/api_exceptions.dart';
-import 'package:hungry_app/features/auth/data/cubit/auth_state.dart';
+import 'package:hungry_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:hungry_app/features/auth/data/repo/auth_repo.dart';
 
 class AuthCubit extends Cubit<AuthState> {
