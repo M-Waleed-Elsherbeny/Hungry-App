@@ -23,4 +23,26 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthLoginFailed(message: e.toString()));
     }
   }
+
+  Future<void> signUp({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    emit(AuthSignUpLoading());
+    try {
+      final user = await _authRepo.signUp(
+        name: name,
+        email: email,
+        password: password,
+      );
+      emit(AuthLoginSuccess(user: user!));
+    } on ApiErrors catch (e) {
+      log("ApiErrors: ${e.message}");
+      emit(AuthSignUpFailed(message: e.message));
+    } catch (e) {
+      log("ApiExceptions: ${e.toString()}");
+      emit(AuthSignUpFailed(message: e.toString()));
+    }
+  }
 }

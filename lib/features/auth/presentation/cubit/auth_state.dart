@@ -8,7 +8,6 @@ final class AuthLoginLoading extends AuthState {}
 
 final class AuthLoginSuccess extends AuthState {
   final UserModel user;
-
   AuthLoginSuccess({required this.user});
 }
 
@@ -16,4 +15,17 @@ final class AuthLoginFailed extends AuthState {
   final String message;
 
   AuthLoginFailed({required this.message});
+}
+
+final class AuthSignUpLoading extends AuthState {}
+
+final class AuthSignUpSuccess extends AuthState {
+  final UserModel user;
+  AuthSignUpSuccess({required this.user});
+}
+
+final class AuthSignUpFailed extends AuthState {
+  final String message;
+
+  AuthSignUpFailed({required this.message});
 }
