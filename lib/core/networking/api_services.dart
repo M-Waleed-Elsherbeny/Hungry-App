@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:hungry_app/core/networking/api_exceptions.dart';
+import 'package:hungry_app/core/errors/api_exceptions.dart';
 import 'package:hungry_app/core/networking/dio_handler.dart';
 
 class ApiServices {
