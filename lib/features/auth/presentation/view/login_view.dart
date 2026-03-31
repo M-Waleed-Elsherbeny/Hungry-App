@@ -59,7 +59,7 @@ class _LoginViewState extends State<LoginView> {
               colorFilter: const ColorFilter.mode(
                 AppColors.kPrimaryColor,
                 BlendMode.srcIn,
-              ), // AppColors.kPrimaryColor,
+              ),
             ),
             heightSpace(deviceHeight * 0.02),
             CustomText(

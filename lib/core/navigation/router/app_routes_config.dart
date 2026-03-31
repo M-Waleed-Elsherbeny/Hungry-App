@@ -34,7 +34,12 @@ class AppRoutesConfig {
         );
 
       case AppRouterPaths.bottomNavigationBar:
-        return MaterialPageRoute(builder: (_) => const CustomNavigationBar());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<AuthCubit>(
+            create: (context) => AuthCubit(AuthRepo())..getProfileData(),
+            child: const CustomNavigationBar(),
+          ),
+        );
 
       case AppRouterPaths.productDetails:
         return MaterialPageRoute(builder: (_) => const ProductDetailsView());

@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dio/dio.dart';
 import 'package:hungry_app/core/utils/pref_helper.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -13,7 +12,7 @@ class DioHandler {
     _dio = Dio(
       BaseOptions(
         baseUrl: ApiConstants.baseUrl,
-        headers: token != null && token.isNotEmpty
+        headers: token != null
             ? {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer $token',

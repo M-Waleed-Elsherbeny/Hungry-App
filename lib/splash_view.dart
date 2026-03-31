@@ -4,6 +4,7 @@ import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
+import 'package:hungry_app/main.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -24,7 +25,9 @@ class _SplashViewState extends State<SplashView>
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(
         context,
-        AppRouterPaths.loginScreen,
+        token != null
+            ? AppRouterPaths.bottomNavigationBar
+            : AppRouterPaths.loginScreen,
       );
     });
 

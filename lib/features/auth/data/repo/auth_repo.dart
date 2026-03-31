@@ -51,4 +51,16 @@ class AuthRepo {
       throw ApiErrors(message: response.toString());
     }
   }
+
+  /// Profile
+  Future<UserModel?> getProfileData() async {
+    final response = await _apiServices.get(ApiConstants.profileEndPoint);
+    try {
+      UserModel user = UserModel.fromJson(response["data"]);
+      return user;
+    } catch (e) {
+      log("Catch Get Profile Data $e");
+      throw ApiErrors(message: response.toString());
+    }
+  }
 }

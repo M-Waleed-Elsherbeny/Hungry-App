@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +8,7 @@ import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
 import 'package:hungry_app/core/navigation/router/app_routes_config.dart';
 import 'package:hungry_app/core/services/my_bloc_observer.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
+import 'package:hungry_app/core/utils/pref_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,8 +17,12 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   Bloc.observer = MyBlocObserver();
+  token = await PrefHelper.getToken();
+  log("Token: $token");
   runApp(const MyApp());
 }
+
+String? token;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

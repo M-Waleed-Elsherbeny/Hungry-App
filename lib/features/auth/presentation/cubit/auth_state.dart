@@ -29,3 +29,15 @@ final class AuthSignUpFailed extends AuthState {
 
   AuthSignUpFailed({required this.message});
 }
+final class GetProfileDataLoading extends AuthState {}
+
+final class GetProfileDataSuccess extends AuthState {
+  final UserModel user;
+  GetProfileDataSuccess({required this.user});
+}
+
+final class GetProfileDataFailed extends AuthState {
+  final String message;
+
+  GetProfileDataFailed({required this.message});
+}

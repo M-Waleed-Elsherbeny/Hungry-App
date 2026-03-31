@@ -19,7 +19,7 @@ class AuthCubit extends Cubit<AuthState> {
       log("ApiErrors: ${e.message}");
       emit(AuthLoginFailed(message: e.message));
     } on ApiExceptions catch (e) {
-      log("ApiExceptions: ${e.toString()}");
+      log("Catch Login Cubit: ${e.toString()}");
       emit(AuthLoginFailed(message: e.toString()));
     }
   }
@@ -41,8 +41,22 @@ class AuthCubit extends Cubit<AuthState> {
       log("ApiErrors: ${e.message}");
       emit(AuthSignUpFailed(message: e.message));
     } catch (e) {
-      log("ApiExceptions: ${e.toString()}");
+      log("Catch SignUp Cubit: ${e.toString()}");
       emit(AuthSignUpFailed(message: e.toString()));
+    }
+  }
+
+  Future<void> getProfileData() async {
+    try {
+      emit(GetProfileDataLoading());
+      final user = await _authRepo.getProfileData();
+      emit(GetProfileDataSuccess(user: user!));
+    } on ApiErrors catch (e) {
+      log("ApiErrors: ${e.message}");
+      emit(GetProfileDataFailed(message: e.message));
+    } catch (e) {
+      log("Catch Profile Cubit: ${e.toString()}");
+      emit(GetProfileDataFailed(message: e.toString()));
     }
   }
 }
