@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:hungry_app/core/networking/api_exceptions.dart';
+import 'package:hungry_app/core/errors/api_exceptions.dart';
 import 'package:hungry_app/core/networking/dio_handler.dart';
 
 class ApiServices {
@@ -14,7 +14,7 @@ class ApiServices {
     }
   }
 
-  Future<dynamic> post(String endPoint, Map<String, dynamic> data) async {
+  Future<dynamic> post(String endPoint, dynamic data) async {
     try {
       final response = await _dioHandler.dio.post(endPoint, data: data);
       return response.data;
@@ -23,7 +23,7 @@ class ApiServices {
     }
   }
 
-  Future<dynamic> put(String endPoint, Map<String, dynamic> data) async {
+  Future<dynamic> put(String endPoint, dynamic data) async {
     try {
       final response = await _dioHandler.dio.put(endPoint, data: data);
       return response.data;

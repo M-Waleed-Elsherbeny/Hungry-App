@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
+import 'package:hungry_app/core/utils/custom_loading.dart';
+import 'package:hungry_app/core/utils/custom_snack_bar.dart';
+import 'package:hungry_app/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:hungry_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:hungry_app/features/auth/presentation/widgets/custom_auth_button.dart';
 import 'package:hungry_app/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
@@ -36,7 +41,13 @@ class _SignUpViewState extends State<SignUpView> {
   }
 
   validSignUp() {
-    if (formKey.currentState!.validate()) {}
+    if (formKey.currentState!.validate()) {
+      context.read<AuthCubit>().signUp(
+        name: nameController.text.trim(),
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    }
   }
 
   @override
@@ -125,11 +136,34 @@ class _SignUpViewState extends State<SignUpView> {
                           },
                         ),
                         heightSpace(deviceHeight * 0.03),
-                        CustomAuthButton(
-                          buttonColor: AppColors.kPrimaryColor,
-                          textStyle: AppTextStyle.textWhite20WBold,
-                          title: "Create Account",
-                          onTap: validSignUp,
+                        BlocConsumer<AuthCubit, AuthState>(
+                          listener: (context, state) {
+                            if (state is AuthSignUpFailed) {
+                              customSnackBar(context, state.message);
+                            }
+                            if (state is AuthSignUpSuccess) {
+                              customSnackBar(
+                                context,
+                                "Created Account Successfully",
+                                isErrorMessage: false,
+                              );
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                AppRouterPaths.loginScreen,
+                                (route) => false,
+                              );
+                            }
+                          },
+                          builder: (context, state) {
+                            return state is AuthSignUpLoading
+                                ? customLoading()
+                                : CustomAuthButton(
+                                    buttonColor: AppColors.kPrimaryColor,
+                                    textStyle: AppTextStyle.textWhite20WBold,
+                                    title: "Create Account",
+                                    onTap: validSignUp,
+                                  );
+                          },
                         ),
                         heightSpace(deviceHeight * 0.03),
                         CustomAuthButton(

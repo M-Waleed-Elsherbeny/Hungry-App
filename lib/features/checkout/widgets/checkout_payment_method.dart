@@ -13,11 +13,15 @@ class CheckoutPaymentMethod extends StatelessWidget {
     this.isVisa = false,
     required this.radioGroupValue,
     required this.onChanged,
-    this.onTap, this.activeColor,
+    this.onTap,
+    this.activeColor,
+    this.visaNumber,
+    this.isSelected = false,
   });
   final String paymentMethod, paymentImage, radioValue, radioGroupValue;
   final Color? tileColor;
-  final bool isVisa;
+  final String? visaNumber;
+  final bool isVisa, isSelected;
   final ValueChanged<String?> onChanged;
   final VoidCallback? onTap;
   final Color? activeColor;
@@ -41,8 +45,8 @@ class CheckoutPaymentMethod extends StatelessWidget {
             : AppTextStyle.textWhite16W500,
       ),
       subtitle: isVisa
-          ? const CustomText(
-              text: "3566 **** **** 1234",
+          ? CustomText(
+              text: visaNumber ?? "**** **** **** 1234",
               textStyle: AppTextStyle.textBrown14W400,
             )
           : null,
@@ -50,7 +54,10 @@ class CheckoutPaymentMethod extends StatelessWidget {
       trailing: RadioGroup(
         groupValue: radioGroupValue,
         onChanged: onChanged,
-        child: Radio(value: radioValue, activeColor: activeColor ?? AppColors.kWhiteColor),
+        child: Radio(
+          value: radioValue,
+          activeColor: activeColor ?? AppColors.kWhiteColor,
+        ),
       ),
     );
   }

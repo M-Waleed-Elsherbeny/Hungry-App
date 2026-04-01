@@ -59,7 +59,7 @@ class _LoginViewState extends State<LoginView> {
               colorFilter: const ColorFilter.mode(
                 AppColors.kPrimaryColor,
                 BlendMode.srcIn,
-              ), // AppColors.kPrimaryColor,
+              ),
             ),
             heightSpace(deviceHeight * 0.02),
             CustomText(
@@ -77,75 +77,75 @@ class _LoginViewState extends State<LoginView> {
                     topRight: Radius.circular(20),
                   ),
                 ),
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: formKey,
-                    child: BlocConsumer<AuthCubit, AuthState>(
-                      listener: (context, state) {
-                        if (state is AuthLoginFailed) {
-                          customSnackBar(context, state.message);
-                        }
-                        if (state is AuthLoginSuccess) {
-                          customSnackBar(
-                            context,
-                            "Login Successfully",
-                            backgroundColor: AppColors.kPrimaryColor,
-                          );
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            AppRouterPaths.bottomNavigationBar,
-                            (route) => false,
-                          );
-                        }
-                      },
-                      builder: (context, state) {
-                        return state is AuthLoginLoading
-                            ? customLoading()
-                            : Column(
-                                children: [
-                                  heightSpace(deviceHeight * 0.03),
-                                  CustomTextFormField(
-                                    controller: emailController,
-                                    fieldName: "Email",
-                                    hintText: "Type your Email",
-                                    prefixIcon: Icons.email,
-                                  ),
-                                  heightSpace(deviceHeight * 0.03),
-                                  CustomTextFormField(
-                                    controller: passwordController,
-                                    fieldName: "Password",
-                                    hintText: "Type your Password",
-                                    prefixIcon: CupertinoIcons.lock_fill,
-                                    suffixIcon: isPassword
-                                        ? CupertinoIcons.eye
-                                        : CupertinoIcons.eye_slash,
-                                    isPassword: !isPassword,
-                                    onTapSuffixIcon: () {
-                                      setState(() {
-                                        isPassword = !isPassword;
-                                      });
-                                    },
-                                  ),
-                                  heightSpace(deviceHeight * 0.05),
-                                  CustomAuthButton(
+                child: BlocConsumer<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    if (state is AuthLoginFailed) {
+                      customSnackBar(context, state.message);
+                    }
+                    if (state is AuthLoginSuccess) {
+                      customSnackBar(
+                        context,
+                        "Login Successfully",
+                        isErrorMessage: false,
+                      );
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        AppRouterPaths.bottomNavigationBar,
+                        (route) => false,
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return SingleChildScrollView(
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                          children: [
+                            heightSpace(deviceHeight * 0.03),
+                            CustomTextFormField(
+                              controller: emailController,
+                              fieldName: "Email",
+                              hintText: "Type your Email",
+                              prefixIcon: Icons.email,
+                            ),
+                            heightSpace(deviceHeight * 0.03),
+                            CustomTextFormField(
+                              controller: passwordController,
+                              fieldName: "Password",
+                              hintText: "Type your Password",
+                              prefixIcon: CupertinoIcons.lock_fill,
+                              suffixIcon: isPassword
+                                  ? CupertinoIcons.eye
+                                  : CupertinoIcons.eye_slash,
+                              isPassword: !isPassword,
+                              onTapSuffixIcon: () {
+                                setState(() {
+                                  isPassword = !isPassword;
+                                });
+                              },
+                            ),
+                            heightSpace(deviceHeight * 0.05),
+                            state is AuthLoginLoading
+                                ? customLoading()
+                                : CustomAuthButton(
                                     buttonColor: AppColors.kPrimaryColor,
                                     textStyle: AppTextStyle.textWhite20WBold,
                                     title: "Login",
                                     onTap: validLogin,
                                   ),
-                                  heightSpace(deviceHeight * 0.03),
-                                  CustomAuthButton(
-                                    title: "Create Account?",
-                                    onTap: () => Navigator.pushReplacementNamed(
-                                      context,
-                                      AppRouterPaths.signUpScreen,
-                                    ),
-                                  ),
-                                ],
-                              );
-                      },
-                    ),
-                  ),
+                            heightSpace(deviceHeight * 0.03),
+                            CustomAuthButton(
+                              title: "Create Account?",
+                              onTap: () => Navigator.pushReplacementNamed(
+                                context,
+                                AppRouterPaths.signUpScreen,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
