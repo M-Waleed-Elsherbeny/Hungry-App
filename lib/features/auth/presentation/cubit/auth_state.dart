@@ -41,3 +41,14 @@ final class GetProfileDataFailed extends AuthState {
 
   GetProfileDataFailed({required this.message});
 }
+final class UpdateProfileDataLoading extends AuthState {}
+
+final class UpdateProfileDataSuccess extends AuthState {
+  UpdateProfileDataSuccess();
+}
+
+final class UpdateProfileDataFailed extends AuthState {
+  final String message;
+
+  UpdateProfileDataFailed({required this.message});
+}

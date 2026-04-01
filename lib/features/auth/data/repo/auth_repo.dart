@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:hungry_app/core/constants/api_constant.dart';
 import 'package:hungry_app/core/errors/api_errors.dart';
 import 'package:hungry_app/core/networking/api_services.dart';
@@ -60,6 +61,37 @@ class AuthRepo {
       return user;
     } catch (e) {
       log("Catch Get Profile Data $e");
+      throw ApiErrors(message: response.toString());
+    }
+  }
+
+  /// Update Profile
+  Future<UserModel?> updateProfileData({
+    required String name,
+    required String email,
+    required String phone,
+    required String? image,
+    required String address,
+    required String? visa,
+  }) async {
+    final formData = FormData.fromMap({
+      "name": name,
+      "email": email,
+      "phone": phone,
+      "address": address,
+      if (image != null && image.isNotEmpty)
+        "image": await MultipartFile.fromFile(image, filename: "profile.jpg"),
+      if (visa != null && visa.isNotEmpty) "Visa": visa,
+    });
+    final response = await _apiServices.post(
+      ApiConstants.updateProfileEndPoint,
+      formData,
+    );
+    try {
+      final UserModel user = UserModel.fromJson(response["data"]);
+      return user;
+    } catch (_) {
+      log("Catch updateProfileData");
       throw ApiErrors(message: response.toString());
     }
   }

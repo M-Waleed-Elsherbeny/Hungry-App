@@ -14,7 +14,7 @@ class ApiServices {
     }
   }
 
-  Future<dynamic> post(String endPoint, Map<String, dynamic> data) async {
+  Future<dynamic> post(String endPoint, dynamic data) async {
     try {
       final response = await _dioHandler.dio.post(endPoint, data: data);
       return response.data;
@@ -23,7 +23,7 @@ class ApiServices {
     }
   }
 
-  Future<dynamic> put(String endPoint, Map<String, dynamic> data) async {
+  Future<dynamic> put(String endPoint, dynamic data) async {
     try {
       final response = await _dioHandler.dio.put(endPoint, data: data);
       return response.data;
