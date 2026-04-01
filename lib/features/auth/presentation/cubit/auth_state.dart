@@ -29,6 +29,16 @@ final class AuthSignUpFailed extends AuthState {
 
   AuthSignUpFailed({required this.message});
 }
+
+final class AuthLogoutLoading extends AuthState {}
+
+final class AuthLogoutSuccess extends AuthState {}
+
+final class AuthLogoutFailed extends AuthState {
+  final String message;
+  AuthLogoutFailed({required this.message});
+}
+
 final class GetProfileDataLoading extends AuthState {}
 
 final class GetProfileDataSuccess extends AuthState {
@@ -41,11 +51,10 @@ final class GetProfileDataFailed extends AuthState {
 
   GetProfileDataFailed({required this.message});
 }
+
 final class UpdateProfileDataLoading extends AuthState {}
 
-final class UpdateProfileDataSuccess extends AuthState {
-  UpdateProfileDataSuccess();
-}
+final class UpdateProfileDataSuccess extends AuthState {}
 
 final class UpdateProfileDataFailed extends AuthState {
   final String message;

@@ -78,7 +78,7 @@ class AuthCubit extends Cubit<AuthState> {
         address: address,
         visa: visa,
       );
-      await getProfileData();
+      // await getProfileData();
       emit(UpdateProfileDataSuccess());
     } on ApiErrors catch (e) {
       log("ApiErrors in Update Profile: ${e.message}");
