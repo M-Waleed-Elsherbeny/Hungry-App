@@ -1,5 +1,5 @@
+import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hungry_app/core/components/custom_button.dart';
@@ -54,6 +54,7 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   void initState() {
     context.read<AuthCubit>().getProfileData();
+    log(selectedImage ?? "image");
     super.initState();
   }
 
@@ -79,7 +80,11 @@ class _ProfileViewState extends State<ProfileView> {
             customSnackBar(context, state.message);
           }
           if (state is UpdateProfileDataSuccess) {
-            customSnackBar(context, "Profile Updated Successfully");
+            customSnackBar(
+              context,
+              "Profile Updated Successfully",
+              isErrorMessage: false,
+            );
           }
           if (state is GetProfileDataSuccess) {
             user = state.user;
@@ -102,7 +107,7 @@ class _ProfileViewState extends State<ProfileView> {
             color: AppColors.kWhiteColor,
             child: SingleChildScrollView(
               child: Skeletonizer(
-                enabled: user == null,
+                enabled: user == null || state is UpdateProfileDataLoading,
                 child: Column(
                   children: [
                     heightSpace(deviceHeight * 0.05),
@@ -130,7 +135,12 @@ class _ProfileViewState extends State<ProfileView> {
                       ),
                     ),
                     heightSpace(deviceHeight * 0.02),
-                    CustomButton(title: "Upload Image", onTap: pickImage),
+                    CustomButton(
+                      title: user?.image != null || selectedImage != null
+                          ? "Change Image"
+                          : "Upload Image",
+                      onTap: pickImage,
+                    ),
                     heightSpace(deviceHeight * 0.05),
                     CustomProfileTextField(
                       controller: nameController,
