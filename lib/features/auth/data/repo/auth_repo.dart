@@ -25,8 +25,14 @@ class AuthRepo {
         await PrefHelper.saveToken(user.token!);
       }
       return user;
-    } catch (_) {
-      log("Catch Login");
+    } on DioException catch (e) {
+      log("DioException login");
+      throw ApiExceptions.handelError(e);
+    } on ApiErrors catch (e) {
+      log("ApiErrors login");
+      throw ApiErrors(message: e.message);
+    } catch (e) {
+      log("Catch login");
       throw ApiErrors(message: response.toString());
     }
   }
@@ -48,8 +54,14 @@ class AuthRepo {
         await PrefHelper.saveToken(user.token!);
       }
       return user;
-    } catch (_) {
-      log("Catch Sign Up");
+    } on DioException catch (e) {
+      log("DioException signUp");
+      throw ApiExceptions.handelError(e);
+    } on ApiErrors catch (e) {
+      log("ApiErrors signUp");
+      throw ApiErrors(message: e.message);
+    } catch (e) {
+      log("Catch signUp");
       throw ApiErrors(message: response.toString());
     }
   }
@@ -59,10 +71,15 @@ class AuthRepo {
     final response = await _apiServices.get(ApiConstants.profileEndPoint);
     try {
       UserModel user = UserModel.fromJson(response["data"]);
-      log(user.toString());
       return user;
+    } on DioException catch (e) {
+      log("DioException getProfileData");
+      throw ApiExceptions.handelError(e);
+    } on ApiErrors catch (e) {
+      log("ApiErrors getProfileData");
+      throw ApiErrors(message: e.message);
     } catch (e) {
-      log("Catch Get Profile Data $e");
+      log("Catch getProfileData");
       throw ApiErrors(message: response.toString());
     }
   }
@@ -92,7 +109,13 @@ class AuthRepo {
     try {
       final UserModel user = UserModel.fromJson(response["data"]);
       return user;
-    } catch (_) {
+    } on DioException catch (e) {
+      log("DioException updateProfileData");
+      throw ApiExceptions.handelError(e);
+    } on ApiErrors catch (e) {
+      log("ApiErrors updateProfileData");
+      throw ApiErrors(message: e.message);
+    } catch (e) {
       log("Catch updateProfileData");
       throw ApiErrors(message: response.toString());
     }
@@ -100,16 +123,18 @@ class AuthRepo {
 
   /// Logout
   Future<void> logout() async {
+    final response = await _apiServices.post(ApiConstants.logoutEndPoint, {});
     try {
-      final response = await _apiServices.post(ApiConstants.logoutEndPoint, {});
-      log(response.toString());
       await PrefHelper.removeToken();
     } on DioException catch (e) {
+      log("DioException logout");
       throw ApiExceptions.handelError(e);
     } on ApiErrors catch (e) {
+      log("ApiErrors logout");
       throw ApiErrors(message: e.message);
     } catch (e) {
-      ApiErrors(message: e.toString());
+      log("catch logout");
+      throw ApiErrors(message: response.toString());
     }
   }
 }

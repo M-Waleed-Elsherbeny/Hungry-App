@@ -1,8 +1,6 @@
 import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hungry_app/core/errors/api_errors.dart';
-import 'package:hungry_app/core/errors/api_exceptions.dart';
 import 'package:hungry_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:hungry_app/features/auth/data/repo/auth_repo.dart';
 
@@ -18,7 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
     } on ApiErrors catch (e) {
       log("ApiErrors in Login: ${e.message}");
       emit(AuthLoginFailed(message: e.message));
-    } on ApiExceptions catch (e) {
+    } catch (e) {
       log("Catch Login Cubit: ${e.toString()}");
       emit(AuthLoginFailed(message: e.toString()));
     }
@@ -78,7 +76,6 @@ class AuthCubit extends Cubit<AuthState> {
         address: address,
         visa: visa,
       );
-      // await getProfileData();
       emit(UpdateProfileDataSuccess());
     } on ApiErrors catch (e) {
       log("ApiErrors in Update Profile: ${e.message}");
@@ -86,6 +83,19 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       log("Catch Update Profile Cubit: ${e.toString()}");
       emit(UpdateProfileDataFailed(message: e.toString()));
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      emit(AuthLogoutLoading());
+      await _authRepo.logout();
+      emit(AuthLogoutSuccess());
+    } on ApiErrors catch (e) {
+      log("ApiErrors in logout: ${e.message}");
+      emit(AuthLogoutFailed(message: e.message));
+    } catch (e) {
+      emit(AuthLogoutFailed(message: e.toString()));
     }
   }
 }
