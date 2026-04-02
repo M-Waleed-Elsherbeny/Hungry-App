@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hungry_app/core/components/custom_button.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
 import 'package:hungry_app/core/utils/custom_loading.dart';
 import 'package:hungry_app/core/utils/custom_snack_bar.dart';
 import 'package:hungry_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:hungry_app/features/auth/presentation/cubit/auth_state.dart';
-import 'package:hungry_app/features/auth/presentation/widgets/custom_auth_button.dart';
 import 'package:hungry_app/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
@@ -125,21 +125,50 @@ class _LoginViewState extends State<LoginView> {
                               },
                             ),
                             heightSpace(deviceHeight * 0.05),
-                            state is AuthLoginLoading
-                                ? customLoading()
-                                : CustomAuthButton(
-                                    buttonColor: AppColors.kPrimaryColor,
-                                    textStyle: AppTextStyle.textWhite20WBold,
-                                    title: "Login",
-                                    onTap: validLogin,
-                                  ),
-                            heightSpace(deviceHeight * 0.03),
-                            CustomAuthButton(
-                              title: "Create Account?",
-                              onTap: () => Navigator.pushReplacementNamed(
-                                context,
-                                AppRouterPaths.signUpScreen,
+                            CustomButton(
+                              minimumSize: Size(
+                                deviceWidth,
+                                deviceHeight * 0.06,
                               ),
+                              onTap: validLogin,
+                              child: state is AuthLoginLoading
+                                  ? customLoading()
+                                  : const CustomText(
+                                      text: "Login",
+                                      textStyle: AppTextStyle.textWhite20WBold,
+                                    ),
+                            ),
+                            heightSpace(deviceHeight * 0.03),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                CustomButton(
+                                  title: "Create Account?",
+                                  textStyle: AppTextStyle.textGreen18W500,
+                                  minimumSize: Size(
+                                    deviceWidth * 0.05,
+                                    deviceHeight * 0.06,
+                                  ),
+                                  backgroundColor: AppColors.kLightWhiteColor,
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    AppRouterPaths.signUpScreen,
+                                  ),
+                                ),
+                                CustomButton(
+                                  title: "As a Guest ?",
+                                  textStyle: AppTextStyle.textGreen18W500,
+                                  backgroundColor: AppColors.kLightWhiteColor,
+                                  minimumSize: Size(
+                                    deviceWidth * 0.01,
+                                    deviceHeight * 0.06,
+                                  ),
+                                  onTap: () => Navigator.pushReplacementNamed(
+                                    context,
+                                    AppRouterPaths.bottomNavigationBar,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
