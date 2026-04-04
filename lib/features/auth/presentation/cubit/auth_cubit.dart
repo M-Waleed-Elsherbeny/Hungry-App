@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hungry_app/core/errors/api_errors.dart';
 import 'package:hungry_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:hungry_app/features/auth/data/repo/auth_repo.dart';
 
@@ -10,16 +8,11 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> login({required String email, required String password}) async {
     emit(AuthLoginLoading());
-    try {
-      final user = await _authRepo.login(email: email, password: password);
-      emit(AuthLoginSuccess(user: user!));
-    } on ApiErrors catch (e) {
-      log("ApiErrors in Login: ${e.message}");
-      emit(AuthLoginFailed(message: e.message));
-    } catch (e) {
-      log("Catch Login Cubit: ${e.toString()}");
-      emit(AuthLoginFailed(message: e.toString()));
-    }
+    final response = await _authRepo.login(email: email, password: password);
+    response.fold(
+      ifLeft: (error) => emit(AuthLoginFailed(message: error.errMessage)),
+      ifRight: (user) => emit(AuthLoginSuccess(user: user!)),
+    );
   }
 
   Future<void> signUp({
@@ -28,34 +21,25 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
   }) async {
     emit(AuthSignUpLoading());
-    try {
-      final user = await _authRepo.signUp(
-        name: name,
-        email: email,
-        password: password,
-      );
-      emit(AuthSignUpSuccess(user: user!));
-    } on ApiErrors catch (e) {
-      log("ApiErrors in SignUp: ${e.message}");
-      emit(AuthSignUpFailed(message: e.message));
-    } catch (e) {
-      log("Catch SignUp Cubit: ${e.toString()}");
-      emit(AuthSignUpFailed(message: e.toString()));
-    }
+
+    final response = await _authRepo.signUp(
+      name: name,
+      email: email,
+      password: password,
+    );
+    response.fold(
+      ifLeft: (error) => emit(AuthSignUpFailed(message: error.errMessage)),
+      ifRight: (user) => emit(AuthSignUpSuccess(user: user!)),
+    );
   }
 
   Future<void> getProfileData() async {
-    try {
-      emit(GetProfileDataLoading());
-      final user = await _authRepo.getProfileData();
-      emit(GetProfileDataSuccess(user: user!));
-    } on ApiErrors catch (e) {
-      log("ApiErrors in Profile: ${e.message}");
-      emit(GetProfileDataFailed(message: e.message));
-    } catch (e) {
-      log("Catch Profile Cubit: ${e.toString()}");
-      emit(GetProfileDataFailed(message: e.toString()));
-    }
+    emit(GetProfileDataLoading());
+    final response = await _authRepo.getProfileData();
+    response.fold(
+      ifLeft: (error) => emit(GetProfileDataFailed(message: error.errMessage)),
+      ifRight: (user) => emit(GetProfileDataSuccess(user: user!)),
+    );
   }
 
   Future<void> updateProfileData({
@@ -66,36 +50,28 @@ class AuthCubit extends Cubit<AuthState> {
     required String address,
     required String? visa,
   }) async {
-    try {
-      emit(UpdateProfileDataLoading());
-      await _authRepo.updateProfileData(
-        name: name,
-        email: email,
-        phone: phone,
-        image: image,
-        address: address,
-        visa: visa,
-      );
-      emit(UpdateProfileDataSuccess());
-    } on ApiErrors catch (e) {
-      log("ApiErrors in Update Profile: ${e.message}");
-      emit(UpdateProfileDataFailed(message: e.message));
-    } catch (e) {
-      log("Catch Update Profile Cubit: ${e.toString()}");
-      emit(UpdateProfileDataFailed(message: e.toString()));
-    }
+    emit(UpdateProfileDataLoading());
+    final response = await _authRepo.updateProfileData(
+      name: name,
+      email: email,
+      phone: phone,
+      image: image,
+      address: address,
+      visa: visa,
+    );
+    response.fold(
+      ifLeft: (error) =>
+          emit(UpdateProfileDataFailed(message: error.errMessage)),
+      ifRight: (user) => emit(UpdateProfileDataSuccess(user: user!)),
+    );
   }
 
   Future<void> logout() async {
-    try {
       emit(AuthLogoutLoading());
-      await _authRepo.logout();
-      emit(AuthLogoutSuccess());
-    } on ApiErrors catch (e) {
-      log("ApiErrors in logout: ${e.message}");
-      emit(AuthLogoutFailed(message: e.message));
-    } catch (e) {
-      emit(AuthLogoutFailed(message: e.toString()));
-    }
+      final response = await _authRepo.logout();
+      response.fold(
+      ifLeft: (error) => emit(AuthLogoutFailed(message: error.errMessage)),
+      ifRight: (_) => emit(AuthLogoutSuccess()),
+    );
   }
 }

@@ -43,8 +43,14 @@ class CardDetailsView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomText(text: title, textStyle: AppTextStyle.textBrown16W600),
-                CustomText(text: subtitle, textStyle: AppTextStyle.textBrown16W400),
+                CustomText(
+                  text: title,
+                  textStyle: AppTextStyle.textBrown16W600,
+                ),
+                CustomText(
+                  text: subtitle,
+                  textStyle: AppTextStyle.textBrown16W400,
+                ),
                 heightSpace(deviceHeight * 0.015),
                 Row(
                   children: [
@@ -57,7 +63,10 @@ class CardDetailsView extends StatelessWidget {
                       ),
                     ),
                     widthSpace(deviceWidth * 0.01),
-                    CustomText(text: rate, textStyle: AppTextStyle.textBrown14W400),
+                    CustomText(
+                      text: rate,
+                      textStyle: AppTextStyle.textBrown14W400,
+                    ),
                     const Spacer(),
                     GestureDetector(
                       onTap: () {},
