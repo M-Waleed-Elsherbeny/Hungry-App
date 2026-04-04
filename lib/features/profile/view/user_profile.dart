@@ -27,7 +27,7 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-    TextEditingController nameController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController visaController = TextEditingController();
@@ -64,6 +64,7 @@ class _UserProfileState extends State<UserProfile> {
   Future<void> getProfileData() async {
     await context.read<AuthCubit>().getProfileData().then((_) {
       log(user?.name ?? "No User");
+      setState(() {});
     });
   }
 
@@ -74,6 +75,7 @@ class _UserProfileState extends State<UserProfile> {
     emailController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.sizeOf(context).width;

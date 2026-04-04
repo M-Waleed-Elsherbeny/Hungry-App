@@ -140,32 +140,31 @@ class _LoginViewState extends State<LoginView> {
                             ),
                             heightSpace(deviceHeight * 0.03),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                CustomButton(
-                                  title: "Create Account?",
-                                  textStyle: AppTextStyle.textGreen18W500,
-                                  minimumSize: Size(
-                                    deviceWidth * 0.05,
-                                    deviceHeight * 0.06,
-                                  ),
-                                  backgroundColor: AppColors.kLightWhiteColor,
-                                  onTap: () => Navigator.pushReplacementNamed(
-                                    context,
-                                    AppRouterPaths.signUpScreen,
+                                Expanded(
+                                  child: CustomButton(
+                                    title: "New Account",
+                                    textStyle: AppTextStyle.textGreen16W500
+                                        .copyWith(fontSize: 14),
+                                    backgroundColor: AppColors.kLightWhiteColor,
+                                    onTap: () => Navigator.pushReplacementNamed(
+                                      context,
+                                      AppRouterPaths.signUpScreen,
+                                    ),
                                   ),
                                 ),
-                                CustomButton(
-                                  title: "As a Guest ?",
-                                  textStyle: AppTextStyle.textGreen18W500,
-                                  backgroundColor: AppColors.kLightWhiteColor,
-                                  minimumSize: Size(
-                                    deviceWidth * 0.01,
-                                    deviceHeight * 0.06,
-                                  ),
-                                  onTap: () => Navigator.pushReplacementNamed(
-                                    context,
-                                    AppRouterPaths.bottomNavigationBar,
+                                widthSpace(10),
+                                Expanded(
+                                  child: CustomButton(
+                                    title: "As a Guest ?",
+                                    textStyle: AppTextStyle.textGreen16W500
+                                        .copyWith(fontSize: 14),
+                                    backgroundColor: AppColors.kLightWhiteColor,
+                                    onTap: () => Navigator.pushReplacementNamed(
+                                      context,
+                                      AppRouterPaths.bottomNavigationBar,
+                                    ),
                                   ),
                                 ),
                               ],

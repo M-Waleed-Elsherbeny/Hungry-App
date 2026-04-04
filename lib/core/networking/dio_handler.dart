@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:hungry_app/core/utils/pref_helper.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -20,6 +22,7 @@ class DioHandler {
             : {'Content-Type': 'application/json'},
       ),
     );
+    log(dio.options.baseUrl);
     dioLogger();
   }
 

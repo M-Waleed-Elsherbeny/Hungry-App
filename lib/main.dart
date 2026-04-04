@@ -17,12 +17,12 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   Bloc.observer = MyBlocObserver();
-  token = await PrefHelper.getToken();
-  log("Token: $token");
+  isUser = await PrefHelper.isUser();
+  log("Token: $isUser");
   runApp(const MyApp());
 }
 
-String? token;
+bool isUser = false;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

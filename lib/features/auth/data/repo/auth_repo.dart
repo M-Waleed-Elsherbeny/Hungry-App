@@ -1,8 +1,8 @@
 import 'dart:developer';
+import 'package:dart_either/dart_either.dart';
 import 'package:dio/dio.dart';
 import 'package:hungry_app/core/constants/api_constant.dart';
-import 'package:hungry_app/core/errors/api_errors.dart';
-import 'package:hungry_app/core/errors/api_exceptions.dart';
+import 'package:hungry_app/core/errors/failure.dart';
 import 'package:hungry_app/core/networking/api_services.dart';
 import 'package:hungry_app/core/utils/pref_helper.dart';
 import 'package:hungry_app/features/auth/data/models/user_model.dart';
@@ -11,81 +11,73 @@ class AuthRepo {
   final ApiServices _apiServices = ApiServices();
 
   /// Login
-  Future<UserModel?> login({
+  Future<Either<Failure, UserModel?>> login({
     required String email,
     required String password,
   }) async {
-    final response = await _apiServices.post(ApiConstants.loginEndPoint, {
-      "email": email,
-      "password": password,
-    });
     try {
+      final response = await _apiServices.post(ApiConstants.loginEndPoint, {
+        "email": email,
+        "password": password,
+      });
       final UserModel user = UserModel.fromJson(response["data"]);
       if (user.token != null) {
         await PrefHelper.saveToken(user.token!);
       }
-      return user;
-    } on DioException catch (e) {
-      log("DioException login");
-      throw ApiExceptions.handelError(e);
-    } on ApiErrors catch (e) {
-      log("ApiErrors login");
-      throw ApiErrors(message: e.message);
+      return Right(user);
+    } on DioException catch (error) {
+      log("DioException Login: $error");
+      return Left(ServerFailure.fromDioException(error));
     } catch (e) {
-      log("Catch login");
-      throw ApiErrors(message: response.toString());
+      log("Catch Login: $e");
+      return Left(ServerFailure(errMessage: e.toString()));
     }
   }
 
   /// Sign Up
-  Future<UserModel?> signUp({
+  Future<Either<Failure, UserModel?>> signUp({
     required String name,
     required String email,
     required String password,
   }) async {
-    final response = await _apiServices.post(ApiConstants.signUpEndPoint, {
-      "name": name,
-      "email": email,
-      "password": password,
-    });
     try {
+      final response = await _apiServices.post(ApiConstants.signUpEndPoint, {
+        "name": name,
+        "email": email,
+        "password": password,
+      });
       final UserModel user = UserModel.fromJson(response["data"]);
       if (user.token != null) {
         await PrefHelper.saveToken(user.token!);
       }
-      return user;
-    } on DioException catch (e) {
-      log("DioException signUp");
-      throw ApiExceptions.handelError(e);
-    } on ApiErrors catch (e) {
-      log("ApiErrors signUp");
-      throw ApiErrors(message: e.message);
+      return Right(user);
+    } on DioException catch (error) {
+      log("DioException SignUp: $error");
+
+      return Left(ServerFailure.fromDioException(error));
     } catch (e) {
-      log("Catch signUp");
-      throw ApiErrors(message: response.toString());
+      log("Catch SignUp: $e");
+      return Left(ServerFailure(errMessage: e.toString()));
     }
   }
 
   /// Profile
-  Future<UserModel?> getProfileData() async {
-    final response = await _apiServices.get(ApiConstants.profileEndPoint);
+  Future<Either<Failure, UserModel?>> getProfileData() async {
     try {
-      UserModel user = UserModel.fromJson(response["data"]);
-      return user;
-    } on DioException catch (e) {
-      log("DioException getProfileData");
-      throw ApiExceptions.handelError(e);
-    } on ApiErrors catch (e) {
-      log("ApiErrors getProfileData");
-      throw ApiErrors(message: e.message);
+      final response = await _apiServices.get(ApiConstants.profileEndPoint);
+      final UserModel user = UserModel.fromJson(response["data"]);
+      return Right(user);
+    } on DioException catch (error) {
+      log("DioException getProfileData: $error");
+      return Left(ServerFailure.fromDioException(error));
     } catch (e) {
-      log("Catch getProfileData");
-      throw ApiErrors(message: response.toString());
+      log("Catch getProfileData: $e");
+      return Left(ServerFailure(errMessage: e.toString()));
     }
   }
 
   /// Update Profile
-  Future<UserModel?> updateProfileData({
+  Future<Either<Failure, UserModel?>> updateProfileData({
     required String name,
     required String email,
     required String phone,
@@ -93,48 +85,43 @@ class AuthRepo {
     required String address,
     required String? visa,
   }) async {
-    final formData = FormData.fromMap({
-      "name": name,
-      "email": email,
-      "phone": phone,
-      "address": address,
-      if (image != null && image.isNotEmpty)
-        "image": await MultipartFile.fromFile(image, filename: "profile.jpg"),
-      if (visa != null && visa.isNotEmpty) "Visa": visa,
-    });
-    final response = await _apiServices.post(
-      ApiConstants.updateProfileEndPoint,
-      formData,
-    );
     try {
+      final formData = FormData.fromMap({
+        "name": name,
+        "email": email,
+        "phone": phone,
+        "address": address,
+        if (image != null && image.isNotEmpty)
+          "image": await MultipartFile.fromFile(image, filename: "profile.jpg"),
+        if (visa != null && visa.isNotEmpty) "Visa": visa,
+      });
+      final response = await _apiServices.post(
+        ApiConstants.updateProfileEndPoint,
+        formData,
+      );
       final UserModel user = UserModel.fromJson(response["data"]);
-      return user;
-    } on DioException catch (e) {
-      log("DioException updateProfileData");
-      throw ApiExceptions.handelError(e);
-    } on ApiErrors catch (e) {
-      log("ApiErrors updateProfileData");
-      throw ApiErrors(message: e.message);
+      return Right(user);
+    } on DioException catch (error) {
+      log("DioException updateProfileData: $error");
+      return Left(ServerFailure.fromDioException(error));
     } catch (e) {
-      log("Catch updateProfileData");
-      throw ApiErrors(message: response.toString());
+      log("Catch updateProfileData: $e");
+      return Left(ServerFailure(errMessage: e.toString()));
     }
   }
 
   /// Logout
-  Future<void> logout() async {
-    final response = await _apiServices.post(ApiConstants.logoutEndPoint, {});
+  Future<Either<Failure, void>> logout() async {
     try {
+      await _apiServices.post(ApiConstants.logoutEndPoint, {});
       await PrefHelper.removeToken();
-    } on DioException catch (e) {
-      log("DioException logout");
-      throw ApiExceptions.handelError(e);
-    } on ApiErrors catch (e) {
-      log("ApiErrors logout");
-      throw ApiErrors(message: e.message);
+      return const Right(null);
+    } on DioException catch (error) {
+      log("DioException SignUp: $error");
+      return Left(ServerFailure.fromDioException(error));
     } catch (e) {
-      log("catch logout");
-      throw ApiErrors(message: response.toString());
+      log("Catch SignUp: $e");
+      return Left(ServerFailure(errMessage: e.toString()));
     }
   }
 }
