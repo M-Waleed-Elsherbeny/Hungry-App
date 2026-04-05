@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
-import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
@@ -10,11 +9,12 @@ class SpicySlider extends StatelessWidget {
     super.key,
     required this.value,
     required this.onChanged,
-    this.label,
+    required this.label,
+    required this.imageUrl,
   });
   final double value;
   final ValueChanged<double> onChanged;
-  final String? label;
+  final String label, imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,10 @@ class SpicySlider extends StatelessWidget {
     double deviceHeight = MediaQuery.of(context).size.height;
     return Row(
       children: [
-        Image.asset(AppAssets.customizeBeefBurger, height: deviceHeight * 0.20),
+        Expanded(
+          flex: 3,
+          child: Image.network(imageUrl, width: deviceHeight * 0.15),
+        ),
         const Spacer(),
         Column(
           children: [
@@ -60,7 +63,7 @@ class SpicySlider extends StatelessWidget {
             Row(
               children: [
                 const CustomText(text: "🥶"),
-                widthSpace(deviceWidth * 0.4),
+                widthSpace(deviceWidth * 0.3),
                 const CustomText(text: "🌶"),
               ],
             ),

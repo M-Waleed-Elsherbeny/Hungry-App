@@ -128,18 +128,22 @@ class _UserProfileState extends State<UserProfile> {
                       child: Container(
                         width: deviceWidth * 0.35,
                         height: deviceHeight * 0.15,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: AppColors.kPrimaryColor,
-                            width: 2,
-                          ),
-                        ),
+                        decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: selectedImage != null
-                            ? Image.file(File(selectedImage!))
+                            ? Image.file(
+                                File(selectedImage!),
+                                fit: BoxFit.contain,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Icon(
+                                      Icons.person,
+                                      size: deviceHeight * 0.1,
+                                      color: AppColors.kPrimaryColor,
+                                    ),
+                              )
                             : user?.image != null
                             ? Image.network(
                                 user!.image!,
+                                fit: BoxFit.contain,
                                 errorBuilder: (context, error, stackTrace) =>
                                     Icon(
                                       Icons.person,

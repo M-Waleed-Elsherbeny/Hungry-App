@@ -25,7 +25,7 @@ class _SplashViewState extends State<SplashView>
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(
         context,
-        isUser
+        hasToken
             ? AppRouterPaths.bottomNavigationBar
             : AppRouterPaths.loginScreen,
       );

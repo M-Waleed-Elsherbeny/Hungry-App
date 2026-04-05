@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:dart_either/dart_either.dart';
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:hungry_app/core/constants/api_constant.dart';
 import 'package:hungry_app/core/errors/failure.dart';
@@ -16,10 +16,10 @@ class AuthRepo {
     required String password,
   }) async {
     try {
-      final response = await _apiServices.post(ApiConstants.loginEndPoint, {
-        "email": email,
-        "password": password,
-      });
+      final response = await _apiServices.post(
+        endPoint: ApiConstants.loginEndPoint,
+        data: {"email": email, "password": password},
+      );
       final UserModel user = UserModel.fromJson(response["data"]);
       if (user.token != null) {
         await PrefHelper.saveToken(user.token!);
@@ -41,11 +41,10 @@ class AuthRepo {
     required String password,
   }) async {
     try {
-      final response = await _apiServices.post(ApiConstants.signUpEndPoint, {
-        "name": name,
-        "email": email,
-        "password": password,
-      });
+      final response = await _apiServices.post(
+        endPoint: ApiConstants.signUpEndPoint,
+        data: {"name": name, "email": email, "password": password},
+      );
       final UserModel user = UserModel.fromJson(response["data"]);
       if (user.token != null) {
         await PrefHelper.saveToken(user.token!);
@@ -64,7 +63,9 @@ class AuthRepo {
   /// Profile
   Future<Either<Failure, UserModel?>> getProfileData() async {
     try {
-      final response = await _apiServices.get(ApiConstants.profileEndPoint);
+      final response = await _apiServices.get(
+        endPoint: ApiConstants.profileEndPoint,
+      );
       final UserModel user = UserModel.fromJson(response["data"]);
       return Right(user);
     } on DioException catch (error) {
@@ -96,8 +97,8 @@ class AuthRepo {
         if (visa != null && visa.isNotEmpty) "Visa": visa,
       });
       final response = await _apiServices.post(
-        ApiConstants.updateProfileEndPoint,
-        formData,
+        endPoint: ApiConstants.updateProfileEndPoint,
+        data: formData,
       );
       final UserModel user = UserModel.fromJson(response["data"]);
       return Right(user);
@@ -113,7 +114,7 @@ class AuthRepo {
   /// Logout
   Future<Either<Failure, void>> logout() async {
     try {
-      await _apiServices.post(ApiConstants.logoutEndPoint, {});
+      await _apiServices.post(endPoint: ApiConstants.logoutEndPoint);
       await PrefHelper.removeToken();
       return const Right(null);
     } on DioException catch (error) {

@@ -23,6 +23,7 @@ class ToppingsCard extends StatelessWidget {
             Container(
               width: deviceWidth * 0.30,
               height: deviceHeight * 0.15,
+              margin: const EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
                 color: AppColors.kWhiteColor,
                 borderRadius: BorderRadius.circular(10),
@@ -82,7 +83,7 @@ class ToppingsCard extends StatelessWidget {
                     bottomRight: Radius.circular(20),
                   ),
                   image: DecorationImage(
-                    image: AssetImage(image),
+                    image: NetworkImage(image),
                     fit: BoxFit.cover,
                     filterQuality: FilterQuality.high,
                   ),

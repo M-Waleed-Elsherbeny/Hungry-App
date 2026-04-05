@@ -8,6 +8,9 @@ import 'package:hungry_app/features/auth/data/repo/auth_repo.dart';
 import 'package:hungry_app/features/auth/presentation/view/login_view.dart';
 import 'package:hungry_app/features/auth/presentation/view/signup_view.dart';
 import 'package:hungry_app/features/checkout/view/checkout_view.dart';
+import 'package:hungry_app/features/home/data/models/home_product_model.dart';
+import 'package:hungry_app/features/home/data/repo/home_repo.dart';
+import 'package:hungry_app/features/home/view/cubit/home_products_cubit.dart';
 import 'package:hungry_app/features/products/view/product_details_view.dart';
 import 'package:hungry_app/splash_view.dart';
 
@@ -42,7 +45,15 @@ class AppRoutesConfig {
         );
 
       case AppRouterPaths.productDetails:
-        return MaterialPageRoute(builder: (_) => const ProductDetailsView());
+        return MaterialPageRoute(
+          builder: (_) {
+            HomeProductModel product = settings.arguments as HomeProductModel;
+            return BlocProvider<HomeProductsCubit>(
+              create: (context) => HomeProductsCubit(HomeRepo())..getToppings(),
+              child: ProductDetailsView(productModel: product,),
+            );
+          },
+        );
 
       case AppRouterPaths.checkoutScreen:
         return MaterialPageRoute(builder: (_) => const CheckOutView());
