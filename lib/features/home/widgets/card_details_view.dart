@@ -31,7 +31,7 @@ class CardDetailsView extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.asset(image, width: deviceWidth * 0.25),
+                Image.network(image, width: deviceWidth * 0.25),
                 Positioned(
                   bottom: 0,
                   left: 0,

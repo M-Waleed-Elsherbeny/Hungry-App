@@ -43,7 +43,7 @@ class ServerFailure extends Failure {
   factory ServerFailure.fromResponse(int statusCode, dynamic response) {
     if (statusCode >= 400 && statusCode < 500) {
       return ServerFailure(
-        errMessage: response['errors'] ?? statusCode,
+        errMessage: response['message'] ?? statusCode,
       );
     } else if (statusCode == 500) {
       return ServerFailure(

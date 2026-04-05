@@ -10,8 +10,8 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoginLoading());
     final response = await _authRepo.login(email: email, password: password);
     response.fold(
-      ifLeft: (error) => emit(AuthLoginFailed(message: error.errMessage)),
-      ifRight: (user) => emit(AuthLoginSuccess(user: user!)),
+      (error) => emit(AuthLoginFailed(message: error.errMessage)),
+      (user) => emit(AuthLoginSuccess(user: user!)),
     );
   }
 
@@ -28,8 +28,8 @@ class AuthCubit extends Cubit<AuthState> {
       password: password,
     );
     response.fold(
-      ifLeft: (error) => emit(AuthSignUpFailed(message: error.errMessage)),
-      ifRight: (user) => emit(AuthSignUpSuccess(user: user!)),
+      (error) => emit(AuthSignUpFailed(message: error.errMessage)),
+      (user) => emit(AuthSignUpSuccess(user: user!)),
     );
   }
 
@@ -37,8 +37,8 @@ class AuthCubit extends Cubit<AuthState> {
     emit(GetProfileDataLoading());
     final response = await _authRepo.getProfileData();
     response.fold(
-      ifLeft: (error) => emit(GetProfileDataFailed(message: error.errMessage)),
-      ifRight: (user) => emit(GetProfileDataSuccess(user: user!)),
+      (error) => emit(GetProfileDataFailed(message: error.errMessage)),
+      (user) => emit(GetProfileDataSuccess(user: user!)),
     );
   }
 
@@ -60,18 +60,17 @@ class AuthCubit extends Cubit<AuthState> {
       visa: visa,
     );
     response.fold(
-      ifLeft: (error) =>
-          emit(UpdateProfileDataFailed(message: error.errMessage)),
-      ifRight: (user) => emit(UpdateProfileDataSuccess(user: user!)),
+      (error) => emit(UpdateProfileDataFailed(message: error.errMessage)),
+      (user) => emit(UpdateProfileDataSuccess(user: user!)),
     );
   }
 
   Future<void> logout() async {
-      emit(AuthLogoutLoading());
-      final response = await _authRepo.logout();
-      response.fold(
-      ifLeft: (error) => emit(AuthLogoutFailed(message: error.errMessage)),
-      ifRight: (_) => emit(AuthLogoutSuccess()),
+    emit(AuthLogoutLoading());
+    final response = await _authRepo.logout();
+    response.fold(
+      (error) => emit(AuthLogoutFailed(message: error.errMessage)),
+      (_) => emit(AuthLogoutSuccess()),
     );
   }
 }

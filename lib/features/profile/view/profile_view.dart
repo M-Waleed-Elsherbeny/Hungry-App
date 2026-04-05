@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hungry_app/core/utils/pref_helper.dart';
 import 'package:hungry_app/features/profile/view/guest_profile.dart';
 import 'package:hungry_app/features/profile/view/user_profile.dart';
+import 'package:hungry_app/main.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -13,7 +14,7 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  bool user = false;
+  bool user = hasToken;
   @override
   void initState() {
     isUser();
