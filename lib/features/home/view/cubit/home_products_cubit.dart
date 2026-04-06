@@ -13,13 +13,4 @@ class HomeProductsCubit extends Cubit<HomeProductsState> {
       (products) => emit(GetAllProductsSuccess(products: products)),
     );
   }
-
-  Future<void> getToppings() async {
-    emit(GetAllToppingsLoading());
-    final response = await _homeRepo.getToppings();
-    response.fold(
-      (error) => emit(GetAllToppingsError(errMsg: error.errMessage)),
-      (toppings) => emit(GetAllToppingsSuccess(toppings: toppings)),
-    );
-  }
 }

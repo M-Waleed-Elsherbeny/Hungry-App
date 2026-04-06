@@ -4,8 +4,8 @@ import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
-import 'package:hungry_app/features/cart/widgets/add_and_minus.dart';
-import 'package:hungry_app/features/cart/widgets/custom_cart_button.dart';
+import 'package:hungry_app/features/cart/ui/widgets/add_and_minus.dart';
+import 'package:hungry_app/features/cart/ui/widgets/custom_cart_button.dart';
 
 class CustomCartCard extends StatelessWidget {
   const CustomCartCard({
