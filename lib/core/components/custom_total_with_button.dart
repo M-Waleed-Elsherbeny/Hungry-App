@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hungry_app/core/components/custom_button.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
@@ -11,9 +11,11 @@ class CustomTotalWithButton extends StatelessWidget {
     required this.totalPrice,
     required this.buttonTitle,
     required this.onTap,
+    this.isLoading = false,
   });
   final String totalPrice, buttonTitle;
   final VoidCallback onTap;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,13 @@ class CustomTotalWithButton extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          CustomButton(title: buttonTitle, onTap: onTap),
+          isLoading
+              ? const Center(
+                  child: CupertinoActivityIndicator(
+                    color: AppColors.kPrimaryColor,
+                  ),
+                )
+              : CustomButton(title: buttonTitle, onTap: onTap),
           heightSpace(deviceHeight * 0.1),
         ],
       ),

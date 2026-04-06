@@ -31,8 +31,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   List<ToppingsAndOptionsModel> toppings = [];
   List<ToppingsAndOptionsModel> options = [];
   double currentSpicyValue = 0.0;
-  bool isToppingSelected = false;
-  bool isOptionSelected = false;
   List<int> selectedTopping = [];
   List<int> selectedOption = [];
   @override
@@ -106,21 +104,23 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                 ) {
                                   final topping = toppings[index];
                                   // [1, 2, 3] =
-                                  isToppingSelected = selectedTopping.contains(index);
+                                  final bool isToppingSelected = selectedTopping
+                                      .contains(topping.id);
+                                  log("isToppingSelected: $selectedTopping");
                                   return ToppingsCard(
                                     image: topping.image,
                                     title: topping.name,
                                     isSelected: isToppingSelected,
                                     onAdd: () {
-                                      final id = topping.id;
                                       setState(() {
-                                        if (selectedTopping.contains(id)) {
-                                          selectedTopping.removeAt(id);
+                                        if (isToppingSelected) {
+                                          selectedTopping.remove(topping.id);
                                         } else {
-                                          selectedTopping.add(id);
+                                          selectedTopping.add(topping.id);
                                         }
-                                        log(selectedTopping.toString());
-                                        log(isToppingSelected.toString());
+                                        log(
+                                          "selectedTopping: $selectedTopping",
+                                        );
                                       });
                                     },
                                   );
@@ -141,14 +141,23 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                   index,
                                 ) {
                                   final option = options[index];
-                                  isOptionSelected =
-                                      selectedOption.isNotEmpty &&
-                                      selectedOption[option.id - 1] == index;
+                                  final bool isOptionSelected = selectedOption
+                                      .contains(option.id);
+                                  log("isOptionSelected: $isOptionSelected");
                                   return ToppingsCard(
                                     image: option.image,
                                     title: option.name,
                                     isSelected: isOptionSelected,
-                                    onAdd: () {},
+                                    onAdd: () {
+                                      setState(() {
+                                        if (isOptionSelected) {
+                                          selectedOption.remove(option.id);
+                                        } else {
+                                          selectedOption.add(option.id);
+                                        }
+                                        log("selectedOption: $selectedOption");
+                                      });
+                                    },
                                   );
                                 }),
                               ),
@@ -164,7 +173,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
           ),
         ),
         // Total Section
-        bottomSheet: BlocListener<CartCubit, CartState>(
+        bottomSheet: BlocConsumer<CartCubit, CartState>(
           listener: (context, state) {
             if (state is AddToCartSuccess) {
               customSnackBar(
@@ -176,24 +185,27 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
               customSnackBar(context, state.errMsg);
             }
           },
-          child: CustomTotalWithButton(
-            totalPrice: widget.productModel.price,
-            buttonTitle: "Add to Cart",
-            onTap: () async {
-              final CartItemsModel items = CartItemsModel(
-                items: [
-                  CartModel(
-                    productId: widget.productModel.id,
-                    quantity: 1,
-                    spicy: currentSpicyValue,
-                    toppings: selectedTopping,
-                    sideOptions: selectedOption,
-                  ),
-                ],
-              );
-              await context.read<CartCubit>().addToCart(items: items);
-            },
-          ),
+          builder: (context, state) {
+            return CustomTotalWithButton(
+              totalPrice: widget.productModel.price,
+              buttonTitle: "Add to Cart",
+              isLoading: state is AddToCartLoading,
+              onTap: () async {
+                final CartItemsModel items = CartItemsModel(
+                  items: [
+                    CartModel(
+                      productId: widget.productModel.id,
+                      quantity: 1,
+                      spicy: currentSpicyValue,
+                      toppings: selectedTopping,
+                      sideOptions: selectedOption,
+                    ),
+                  ],
+                );
+                await context.read<CartCubit>().addToCart(items: items);
+              },
+            );
+          },
         ),
       ),
     );
