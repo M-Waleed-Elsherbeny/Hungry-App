@@ -1,15 +1,15 @@
-class ToppingsModel {
+class ToppingsAndOptionsModel {
   final int id;
   final String name, image;
 
-  ToppingsModel({
+  ToppingsAndOptionsModel({
     required this.id,
     required this.name,
     required this.image,
   });
 
-  factory ToppingsModel.fromJson(Map<String, dynamic> data) {
-    return ToppingsModel(
+  factory ToppingsAndOptionsModel.fromJson(Map<String, dynamic> data) {
+    return ToppingsAndOptionsModel(
       id: data["id"],
       name: data["name"] ?? "",
       image: data["image"] ?? "",

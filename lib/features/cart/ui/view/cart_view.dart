@@ -3,7 +3,7 @@ import 'package:hungry_app/core/components/custom_total_with_button.dart';
 import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
 import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
-import 'package:hungry_app/features/cart/widgets/custom_cart_card.dart';
+import 'package:hungry_app/features/cart/ui/widgets/custom_cart_card.dart';
 
 class CartView extends StatefulWidget {
   const CartView({super.key});

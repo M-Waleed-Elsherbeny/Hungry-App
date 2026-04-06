@@ -19,10 +19,13 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   hasToken = await PrefHelper.isUser();
   log("Token: $hasToken");
+  userToken = await PrefHelper.getToken();
+  log("Token: $userToken");
   runApp(const MyApp());
 }
 
 bool hasToken = false;
+String? userToken;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

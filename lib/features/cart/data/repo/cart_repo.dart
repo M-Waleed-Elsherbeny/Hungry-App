@@ -1,0 +1,27 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:hungry_app/core/constants/api_constant.dart';
+import 'package:hungry_app/core/errors/custom_exception.dart';
+import 'package:hungry_app/core/errors/failure.dart';
+import 'package:hungry_app/core/networking/api_services.dart';
+import 'package:hungry_app/features/cart/data/models/cart_model.dart';
+
+class CartRepo {
+  final ApiServices _apiServices = ApiServices();
+
+  Future<Either<Failure, void>> addToCart({
+    required CartItemsModel items,
+  }) async {
+    try {
+      await _apiServices.post(
+        endPoint: ApiConstants.cartEndPoint,
+        data: items.toJson(),
+      );
+      return const Right(null);
+    } on DioException catch (error) {
+      return Left(ServerFailure.fromDioException(error));
+    } on CustomException catch (error) {
+      return Left(ServerFailure(errMessage: error.errMessage));
+    }
+  }
+}
