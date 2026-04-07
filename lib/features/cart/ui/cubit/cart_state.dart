@@ -17,7 +17,7 @@ final class AddToCartFailure extends CartState {
 final class GetUserCartLoading extends CartState {}
 
 final class GetUserCartSuccess extends CartState {
-  final List<UserCartModel> cartModel;
+  final UserCartModel? cartModel;
 
   GetUserCartSuccess({required this.cartModel});
 }
