@@ -28,10 +28,10 @@ class CustomCartCard extends StatelessWidget {
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
     return Card(
-      // margin: EdgeInsets.only(
-      //   top: deviceHeight * 0.02,
-      //   bottom: deviceHeight * 0.02,
-      // ),
+      margin: EdgeInsets.only(
+        top: deviceHeight * 0.02,
+        bottom: deviceHeight * 0.02,
+      ),
       color: AppColors.kWhiteColor,
       elevation: 10,
       shadowColor: AppColors.kPrimaryColor,
@@ -65,23 +65,11 @@ class CustomCartCard extends StatelessWidget {
             const Spacer(),
             Column(
               children: [
-                Row(
-                  children: [
-                    AddAndMinus(
-                      icon: CupertinoIcons.minus,
-                      onPressed: onTapMinusButton,
-                    ),
-                    widthSpace(deviceWidth * 0.05),
-                    CustomText(
-                      text: quantity.toString(),
-                      textStyle: AppTextStyle.textBrown16W600,
-                    ),
-                    widthSpace(deviceWidth * 0.05),
-                    AddAndMinus(
-                      icon: CupertinoIcons.plus,
-                      onPressed: onTapAddButton,
-                    ),
-                  ],
+                AddAndMinus(
+                  icon: CupertinoIcons.minus,
+                  onTapMinusButton: onTapMinusButton,
+                  onTapAddButton: onTapAddButton,
+                  quantity: quantity,
                 ),
                 heightSpace(deviceHeight * 0.02),
                 CustomCartButton(onPressed: onTapRemoveButton),

@@ -5,6 +5,7 @@ import 'package:hungry_app/core/errors/custom_exception.dart';
 import 'package:hungry_app/core/errors/failure.dart';
 import 'package:hungry_app/core/networking/api_services.dart';
 import 'package:hungry_app/features/cart/data/models/cart_model.dart';
+import 'package:hungry_app/features/cart/data/models/user_cart_model.dart';
 
 class CartRepo {
   final ApiServices _apiServices = ApiServices();
@@ -14,10 +15,24 @@ class CartRepo {
   }) async {
     try {
       await _apiServices.post(
-        endPoint: ApiConstants.cartEndPoint,
+        endPoint: ApiConstants.addCartEndPoint,
         data: items.toJson(),
       );
       return const Right(null);
+    } on DioException catch (error) {
+      return Left(ServerFailure.fromDioException(error));
+    } on CustomException catch (error) {
+      return Left(ServerFailure(errMessage: error.errMessage));
+    }
+  }
+
+  Future<Either<Failure, UserCartModel>> getCart() async {
+    try {
+      final response = await _apiServices.get(
+        endPoint: ApiConstants.addCartEndPoint,
+      );
+      UserCartModel cartModel = UserCartModel.fromJson(response["data"]);
+      return Right(cartModel);
     } on DioException catch (error) {
       return Left(ServerFailure.fromDioException(error));
     } on CustomException catch (error) {

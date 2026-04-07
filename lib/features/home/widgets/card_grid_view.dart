@@ -17,11 +17,6 @@ class CardGridView extends StatefulWidget {
 
 class _CardGridViewState extends State<CardGridView> {
   List<HomeProductModel>? products = [];
-  @override
-  void initState() {
-    context.read<HomeProductsCubit>().getAllProducts();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

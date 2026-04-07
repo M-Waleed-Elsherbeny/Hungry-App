@@ -11,6 +11,8 @@ import 'package:hungry_app/features/cart/data/repo/cart_repo.dart';
 import 'package:hungry_app/features/cart/ui/cubit/cart_cubit.dart';
 import 'package:hungry_app/features/checkout/view/checkout_view.dart';
 import 'package:hungry_app/features/home/data/models/home_product_model.dart';
+import 'package:hungry_app/features/home/data/repo/home_repo.dart';
+import 'package:hungry_app/features/home/view/cubit/home_products_cubit.dart';
 import 'package:hungry_app/features/products/data/repo/toppings_and_options_repo.dart';
 import 'package:hungry_app/features/products/ui/cubit/toppings_and_options_cubit.dart';
 import 'package:hungry_app/features/products/ui/view/product_details_view.dart';
@@ -40,10 +42,23 @@ class AppRoutesConfig {
 
       case AppRouterPaths.bottomNavigationBar:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider<AuthCubit>(
-            create: (context) => AuthCubit(AuthRepo())..getProfileData(),
-            child: const CustomNavigationBar(),
-          ),
+          builder: (_) {
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider<AuthCubit>(
+                  create: (context) => AuthCubit(AuthRepo())..getProfileData(),
+                ),
+                BlocProvider<CartCubit>(
+                  create: (context) => CartCubit(CartRepo()),
+                ),
+                BlocProvider<HomeProductsCubit>(
+                  create: (context) =>
+                      HomeProductsCubit(HomeRepo())..getAllProducts(),
+                ),
+              ],
+              child: const CustomNavigationBar(),
+            );
+          },
         );
 
       case AppRouterPaths.productDetails:
