@@ -1,6 +1,6 @@
 import 'package:hungry_app/features/products/data/models/toppings_and_options_model.dart';
 
-class UserCartData{
+class UserCartData {
   final int itemId;
   final int productId;
   final String name;
@@ -30,9 +30,17 @@ class UserCartData{
     image: json["image"],
     quantity: json["quantity"],
     price: json["price"],
-    spicy: json["spicy"],
-    toppings: json["toppings"],
-    sideOptions: json["side_options"],
+    spicy: json["spicy"].toString(),
+    toppings: List<ToppingsAndOptionsModel>.from(
+      json["toppings"].map(
+        (toppings) => ToppingsAndOptionsModel.fromJson(toppings),
+      ),
+    ),
+    sideOptions: List<ToppingsAndOptionsModel>.from(
+      json["side_options"].map(
+        (options) => ToppingsAndOptionsModel.fromJson(options),
+      ),
+    ),
   );
 }
 

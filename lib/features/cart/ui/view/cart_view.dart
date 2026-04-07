@@ -43,13 +43,13 @@ class _CartViewState extends State<CartView> {
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.05),
-            child: state is GetUserCartSuccess && state.cartModel.isNotEmpty
+            child: state is GetUserCartSuccess && state.cartModel != null
                 ? ListView.builder(
                     padding: EdgeInsets.only(bottom: deviceHeight * 0.1),
                     itemCount: qty.length,
                     itemBuilder: (_, index) {
-                      final cartModel = state.cartModel[index];
-                      final userCart = cartModel.items[index];
+                      final cartModel = state.cartModel;
+                      final userCart = cartModel!.items[index];
                       return CustomCartCard(
                         image: AppAssets.cheeseBeefBurger,
                         title: userCart.name,

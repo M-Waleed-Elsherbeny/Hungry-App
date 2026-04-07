@@ -26,10 +26,10 @@ class CartRepo {
     }
   }
 
-  Future<Either<Failure, UserCartModel>> getCart() async {
+  Future<Either<Failure, UserCartModel?>> getCart() async {
     try {
       final response = await _apiServices.get(
-        endPoint: ApiConstants.addCartEndPoint,
+        endPoint: ApiConstants.getCartEndPoint,
       );
       UserCartModel cartModel = UserCartModel.fromJson(response["data"]);
       return Right(cartModel);
