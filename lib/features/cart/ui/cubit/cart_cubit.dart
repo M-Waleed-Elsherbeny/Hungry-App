@@ -15,4 +15,13 @@ class CartCubit extends Cubit<CartState> {
       (_) => emit(AddToCartSuccess()),
     );
   }
+
+  Future<void> getUserCart() async {
+    emit(GetUserCartLoading());
+    final response = await _cartRepo.getCart();
+    response.fold(
+      (error) => emit(GetUserCartFailure(errMsg: error.errMessage)),
+      (cart) => emit(GetUserCartSuccess(cartModel: [cart])),
+    );
+  }
 }
