@@ -53,7 +53,7 @@ class AppRoutesConfig {
                 ),
                 BlocProvider<HomeProductsCubit>(
                   create: (context) =>
-                      HomeProductsCubit(HomeRepo())..getAllProducts(),
+                      HomeProductsCubit(HomeRepo()),
                 ),
               ],
               child: const CustomNavigationBar(),

@@ -114,7 +114,7 @@ class _UserProfileState extends State<UserProfile> {
           body: RefreshIndicator(
             onRefresh: () => context.read<AuthCubit>().getProfileData(),
             backgroundColor: AppColors.kPrimaryColor,
-            color: AppColors.kWhiteColor,
+            color: const Color.fromARGB(255, 214, 68, 68),
             child: SingleChildScrollView(
               child: Skeletonizer(
                 enabled:
