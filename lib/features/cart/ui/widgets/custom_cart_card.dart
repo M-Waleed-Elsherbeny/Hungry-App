@@ -45,13 +45,18 @@ class CustomCartCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(image, width: deviceWidth * 0.3),
+                Image.network(image, width: deviceWidth * 0.3),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomText(
-                      text: title,
-                      textStyle: AppTextStyle.textBrown16W600,
+                    SizedBox(
+                      width: deviceWidth * 0.45,
+                      height: deviceHeight * 0.05,
+                      child: CustomText(
+                        maxLines: 2,
+                        text: title,
+                        textStyle: AppTextStyle.textBrown16W600,
+                      ),
                     ),
                     CustomText(
                       text: description,

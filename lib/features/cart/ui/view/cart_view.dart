@@ -1,14 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/components/custom_total_with_button.dart';
 import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
-import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
-import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
+import 'package:hungry_app/core/utils/custom_snack_bar.dart';
+import 'package:hungry_app/features/cart/data/models/user_cart_model.dart';
 import 'package:hungry_app/features/cart/ui/cubit/cart_cubit.dart';
 import 'package:hungry_app/features/cart/ui/cubit/cart_state.dart';
 import 'package:hungry_app/features/cart/ui/widgets/custom_cart_card.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class CartView extends StatefulWidget {
   const CartView({super.key});
@@ -18,11 +20,11 @@ class CartView extends StatefulWidget {
 }
 
 class _CartViewState extends State<CartView> {
-  late List<int> qty;
+  UserCartModel? userCart;
+  int currentQty = 1;
   @override
   void initState() {
     context.read<CartCubit>().getUserCart();
-    qty = List.generate(15, (_) => 1);
     super.initState();
   }
 
@@ -32,7 +34,13 @@ class _CartViewState extends State<CartView> {
     double deviceWidth = MediaQuery.of(context).size.width;
     return BlocConsumer<CartCubit, CartState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (state is GetUserCartFailure) {
+          customSnackBar(context, state.errMsg);
+        } else if (state is GetUserCartSuccess &&
+            state.cartModel!.items.isNotEmpty) {
+          userCart = state.cartModel;
+          setState(() {});
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -43,48 +51,51 @@ class _CartViewState extends State<CartView> {
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.05),
-            child: state is GetUserCartSuccess && state.cartModel != null
-                ? ListView.builder(
-                    padding: EdgeInsets.only(bottom: deviceHeight * 0.1),
-                    itemCount: qty.length,
-                    itemBuilder: (_, index) {
-                      final cartModel = state.cartModel;
-                      final userCart = cartModel!.items[index];
-                      return CustomCartCard(
-                        image: AppAssets.cheeseBeefBurger,
-                        title: userCart.name,
-                        description: "Wendy's Burger",
-                        quantity: userCart.quantity,
-                        onTapAddButton: () {
-                          setState(() {
-                            qty[index]++;
-                          });
-                        },
-                        onTapMinusButton: () {
-                          if (qty[index] > 1) {
-                            setState(() {
-                              qty[index]--;
-                            });
-                          }
-                        },
-                        onTapRemoveButton: () {},
-                      );
+            child: Skeletonizer(
+              enabled:
+                  state is GetUserCartLoading ||
+                  state is CartInitial ||
+                  userCart == null,
+              child: ListView.builder(
+                padding: EdgeInsets.only(bottom: deviceHeight * 0.1),
+                itemBuilder: (_, index) {
+                  var cartItems = userCart?.items[index];
+                  final userQty = userCart?.items[index].quantity ?? 1;
+                  log("userQty : $userQty");
+                  log("currentQty : $currentQty");
+                  return CustomCartCard(
+                    image: cartItems?.image ?? "",
+                    title: cartItems?.name ?? "",
+                    description: "Wendy's Burger",
+                    quantity: (currentQty > userQty) ? currentQty : userQty,
+                    onTapAddButton: () {
+                      currentQty++;
+                      setState(() {});
                     },
-                  )
-                : const Center(
-                    child: CustomText(
-                      text: "Your Cart is Empty",
-                      textStyle: AppTextStyle.textBrown18W700,
-                    ),
-                  ),
+                    onTapMinusButton: () {
+                      if (currentQty > 1) {
+                        setState(() {
+                          currentQty--;
+                        });
+                      }
+                    },
+                    onTapRemoveButton: () {},
+                  );
+                },
+                itemCount: userCart?.items.length ?? 0,
+              ),
+            ),
           ),
           // Total Section
-          bottomSheet: CustomTotalWithButton(
-            totalPrice: "18.99",
-            buttonTitle: "Checkout",
-            onTap: () {
-              Navigator.pushNamed(context, AppRouterPaths.checkoutScreen);
-            },
+          bottomSheet: Skeletonizer(
+            enabled: state is GetUserCartLoading || state is CartInitial,
+            child: CustomTotalWithButton(
+              totalPrice: userCart?.totalPrice ?? 0.0.toString(),
+              buttonTitle: "Checkout",
+              onTap: () {
+                Navigator.pushNamed(context, AppRouterPaths.checkoutScreen);
+              },
+            ),
           ),
         );
       },

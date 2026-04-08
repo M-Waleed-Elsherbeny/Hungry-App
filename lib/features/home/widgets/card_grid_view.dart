@@ -16,7 +16,12 @@ class CardGridView extends StatefulWidget {
 }
 
 class _CardGridViewState extends State<CardGridView> {
-  List<HomeProductModel>? products = [];
+  List<HomeProductModel?> products = [];
+  @override
+  void initState() {
+    context.read<HomeProductsCubit>().getAllProducts();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,7 @@ class _CardGridViewState extends State<CardGridView> {
       },
       builder: (context, state) {
         return Skeletonizer(
-          enabled: products == null || state is GetAllProductsLoading,
+          enabled: products.isEmpty || state is GetAllProductsLoading,
           child: GridView.builder(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
@@ -44,9 +49,9 @@ class _CardGridViewState extends State<CardGridView> {
               mainAxisSpacing: deviceHeight * 0.02,
               childAspectRatio: deviceWidth / (deviceHeight * 0.55),
             ),
-            itemCount: products!.length,
+            itemCount: products.length,
             itemBuilder: (_, index) {
-              final product = products![index];
+              final product = products[index];
               return InkWell(
                 onTap: () {
                   Navigator.pushNamed(
@@ -56,7 +61,7 @@ class _CardGridViewState extends State<CardGridView> {
                   );
                 },
                 child: CardDetailsView(
-                  image: product.image,
+                  image: product!.image,
                   title: product.name,
                   subtitle: product.description,
                   rate: product.rating,
