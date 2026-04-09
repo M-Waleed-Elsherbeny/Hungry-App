@@ -10,6 +10,7 @@ import 'package:hungry_app/features/cart/data/models/user_cart_model.dart';
 class CartRepo {
   final ApiServices _apiServices = ApiServices();
 
+  /// Add Cart
   Future<Either<Failure, void>> addToCart({
     required CartItemsModel items,
   }) async {
@@ -26,6 +27,7 @@ class CartRepo {
     }
   }
 
+  /// Get Cart
   Future<Either<Failure, UserCartModel?>> getCart() async {
     try {
       final response = await _apiServices.get(
@@ -37,6 +39,20 @@ class CartRepo {
       return Left(ServerFailure.fromDioException(error));
     } on CustomException catch (error) {
       return Left(ServerFailure(errMessage: error.errMessage));
+    }
+  }
+
+  /// Delete Cart
+  Future<Either<Failure, void>> deleteFromCart({required int id}) async {
+    try {
+      await _apiServices.delete(
+        endPoint: "${ApiConstants.deleteCartEndPoint}/$id",
+      );
+      return const Right(null);
+    } on DioException catch (error) {
+      return Left(ServerFailure.fromDioException(error));
+    } on CustomException catch (e) {
+      return Left(ServerFailure(errMessage: e.errMessage));
     }
   }
 }

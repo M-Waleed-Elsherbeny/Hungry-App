@@ -1,26 +1,33 @@
 class CartModel {
   final int productId;
   final int quantity;
-  final double spicy;
+  final double? spicy;
   final List<int> toppings;
   final List<int> sideOptions;
 
   CartModel({
     required this.productId,
     required this.quantity,
-    required this.spicy,
+    this.spicy,
     required this.toppings,
     required this.sideOptions,
   });
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'product_id': productId,
-      'quantity': quantity,
-      'spicy': spicy,
-      'toppings': toppings,
-      'side_options': sideOptions,
-    };
+    return spicy != null
+        ? <String, dynamic>{
+            'product_id': productId,
+            'quantity': quantity,
+            'spicy': spicy,
+            'toppings': toppings,
+            'side_options': sideOptions,
+          }
+        : <String, dynamic>{
+            'product_id': productId,
+            'quantity': quantity,
+            'toppings': toppings,
+            'side_options': sideOptions,
+          };
   }
 }
 

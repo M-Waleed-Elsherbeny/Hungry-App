@@ -27,3 +27,13 @@ final class GetUserCartFailure extends CartState {
 
   GetUserCartFailure({required this.errMsg});
 }
+
+final class DeleteFromCartLoading extends CartState {}
+
+final class DeleteFromCartSuccess extends CartState {}
+
+final class DeleteFromCartFailure extends CartState {
+  final String errMsg;
+
+  DeleteFromCartFailure({required this.errMsg});
+}

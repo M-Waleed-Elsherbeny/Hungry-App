@@ -24,4 +24,14 @@ class CartCubit extends Cubit<CartState> {
       (cart) => emit(GetUserCartSuccess(cartModel: cart)),
     );
   }
+
+  Future<void> deleteFromCart({required int id}) async {
+    emit(DeleteFromCartLoading());
+    final response = await _cartRepo.deleteFromCart(id: id);
+    response.fold(
+      (errMsg) => emit(DeleteFromCartFailure(errMsg: errMsg.errMessage)),
+      (_) => emit(DeleteFromCartSuccess()),
+    );
+    await getUserCart();
+  }
 }

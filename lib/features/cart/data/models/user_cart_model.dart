@@ -8,8 +8,8 @@ class UserCartData {
   final int quantity;
   final String price;
   final String spicy;
-  List<ToppingsAndOptionsModel> toppings;
-  List<ToppingsAndOptionsModel> sideOptions;
+  List<ToppingsAndOptionsModel?> toppings;
+  List<ToppingsAndOptionsModel?> sideOptions;
 
   UserCartData({
     required this.itemId,
@@ -34,12 +34,13 @@ class UserCartData {
     toppings: List<ToppingsAndOptionsModel>.from(
       json["toppings"].map(
         (toppings) => ToppingsAndOptionsModel.fromJson(toppings),
-      ),
+      ) ?? [],
     ),
     sideOptions: List<ToppingsAndOptionsModel>.from(
       json["side_options"].map(
         (options) => ToppingsAndOptionsModel.fromJson(options),
-      ),
+      ) ??
+          [],
     ),
   );
 }
@@ -47,7 +48,7 @@ class UserCartData {
 class UserCartModel {
   final int id;
   final String totalPrice;
-  final List<UserCartData> items;
+  final List<UserCartData?> items;
   UserCartModel({
     required this.items,
     required this.id,
@@ -58,7 +59,7 @@ class UserCartModel {
     id: json["id"],
     totalPrice: json["total_price"],
     items: List<UserCartData>.from(
-      json["items"].map((x) => UserCartData.fromJson(x)),
+      json["items"].map((x) => UserCartData.fromJson(x)) ?? [],
     ),
   );
 }
