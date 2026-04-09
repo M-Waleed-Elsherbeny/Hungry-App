@@ -5,7 +5,7 @@ import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 
 class CustomCartButton extends StatelessWidget {
   const CustomCartButton({super.key, required this.onPressed});
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

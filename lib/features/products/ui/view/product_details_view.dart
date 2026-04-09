@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hungry_app/core/components/custom_back_button.dart';
@@ -29,7 +31,7 @@ class ProductDetailsView extends StatefulWidget {
 class _ProductDetailsViewState extends State<ProductDetailsView> {
   List<ToppingsAndOptionsModel> toppings = [];
   List<ToppingsAndOptionsModel> options = [];
-  double currentSpicyValue = 0.0;
+  double currentSpicyValue = 0;
   List<int> selectedTopping = [];
   List<int> selectedOption = [];
   int quantity = 1;
@@ -74,7 +76,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                     SpicySlider(
                       imageUrl: widget.productModel.image,
                       value: currentSpicyValue,
-                      label: currentSpicyValue == 0.0
+                      label: currentSpicyValue == 0
                           ? "Not Spicy"
                           : currentSpicyValue == 1.0
                           ? "Spicy"
@@ -83,7 +85,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         setState(() {
                           currentSpicyValue = value;
                         });
-                        // log("currentSpicyValue: $currentSpicyValue");
+                        log("currentSpicyValue: $currentSpicyValue");
                       },
                     ),
                     heightSpace(deviceHeight * 0.01),
@@ -210,13 +212,20 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                     onTap: state is AddToCartLoading
                         ? null
                         : () async {
-                            final items = CartModel(
-                              productId: widget.productModel.id,
-                              quantity: quantity,
-                              spicy: currentSpicyValue,
-                              toppings: selectedTopping,
-                              sideOptions: selectedOption,
-                            );
+                            final items = currentSpicyValue > 0
+                                ? CartModel(
+                                    productId: widget.productModel.id,
+                                    quantity: quantity,
+                                    spicy: currentSpicyValue,
+                                    toppings: selectedTopping,
+                                    sideOptions: selectedOption,
+                                  )
+                                : CartModel(
+                                    productId: widget.productModel.id,
+                                    quantity: quantity,
+                                    toppings: selectedTopping,
+                                    sideOptions: selectedOption,
+                                  );
                             await context.read<CartCubit>().addToCart(
                               items: CartItemsModel(items: [items]),
                             );

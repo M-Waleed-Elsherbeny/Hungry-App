@@ -10,7 +10,7 @@ class ToppingsAndOptionsModel {
 
   factory ToppingsAndOptionsModel.fromJson(Map<String, dynamic> data) {
     return ToppingsAndOptionsModel(
-      id: data["id"],
+      id: data["id"] ?? "",
       name: data["name"] ?? "",
       image: data["image"] ?? "",
     );
