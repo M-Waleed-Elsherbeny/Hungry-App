@@ -33,8 +33,12 @@ class CartRepo {
       final response = await _apiServices.get(
         endPoint: ApiConstants.getCartEndPoint,
       );
-      UserCartModel cartModel = UserCartModel.fromJson(response["data"]);
-      return Right(cartModel);
+      if (response.statusCode == 200) {
+        UserCartModel cartModel = UserCartModel.fromJson(response.data["data"]);
+        return Right(cartModel);
+      } else {
+        return const Right(null);
+      }
     } on DioException catch (error) {
       return Left(ServerFailure.fromDioException(error));
     } on CustomException catch (error) {

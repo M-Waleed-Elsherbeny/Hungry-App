@@ -4,6 +4,7 @@ import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/components/custom_total_with_button.dart';
 import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
+import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/custom_snack_bar.dart';
 import 'package:hungry_app/features/cart/data/models/user_cart_model.dart';
 import 'package:hungry_app/features/cart/ui/cubit/cart_cubit.dart';
@@ -35,12 +36,12 @@ class _CartViewState extends State<CartView> {
     double deviceWidth = MediaQuery.of(context).size.width;
     return BlocConsumer<CartCubit, CartState>(
       buildWhen: (previous, current) {
-        return current is GetUserCartSuccess;
+        return current is GetUserCartSuccess || userCart == null;
       },
       listener: (context, state) {
-        if (state is GetUserCartFailure) {
-          customSnackBar(context, state.errMsg);
-        }
+        // if (state is GetUserCartFailure) {
+        //   customSnackBar(context, state.errMsg);
+        // }
         if (state is GetUserCartSuccess && state.cartModel!.items.isNotEmpty) {
           userCart = state.cartModel;
         }
@@ -112,7 +113,10 @@ class _CartViewState extends State<CartView> {
                       itemCount: userCart?.items.length ?? 0,
                     )
                   : const Center(
-                      child: CustomText(text: "Your Cart is Empty..."),
+                      child: CustomText(
+                        text: "Your Cart is Empty...",
+                        textStyle: AppTextStyle.textBrown18W700,
+                      ),
                     ),
             ),
           ),
@@ -122,8 +126,8 @@ class _CartViewState extends State<CartView> {
             child: CustomTotalWithButton(
               totalPrice: userCart?.totalPrice ?? 0.0.toString(),
               buttonTitle: "Checkout",
-              onTap: () {
-                Navigator.pushNamed(context, AppRouterPaths.checkoutScreen);
+              onTap: userCart == null ? null : () {
+                Navigator.pushNamed(context, AppRouterPaths.checkoutScreen, arguments: userCart);
               },
             ),
           ),

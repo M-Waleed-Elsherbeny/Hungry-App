@@ -7,11 +7,13 @@ import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
+import 'package:hungry_app/features/cart/data/models/user_cart_model.dart';
 import 'package:hungry_app/features/checkout/widgets/checkout_payment_method.dart';
 import 'package:hungry_app/features/checkout/widgets/custom_order_details.dart';
 
 class CheckOutView extends StatefulWidget {
-  const CheckOutView({super.key});
+  const CheckOutView({super.key, required this.userCart});
+  final UserCartModel userCart;
 
   @override
   State<CheckOutView> createState() => _CheckOutViewState();
@@ -36,9 +38,9 @@ class _CheckOutViewState extends State<CheckOutView> {
               textStyle: AppTextStyle.textBrown16W600.copyWith(fontSize: 20),
             ),
             heightSpace(deviceHeight * 0.02),
-            const CustomOrderDetails(
-              order: "16.99",
-              taxes: "0.09",
+            CustomOrderDetails(
+              order: widget.userCart.totalPrice,
+              taxes: "10.09",
               deliveryFees: "1.5",
               total: "18.59",
             ),
@@ -82,7 +84,9 @@ class _CheckOutViewState extends State<CheckOutView> {
                 Expanded(
                   child: CustomText(
                     text: "Save card details for future payments",
-                    textStyle: AppTextStyle.textGrey16W400.copyWith(fontSize: 14),
+                    textStyle: AppTextStyle.textGrey16W400.copyWith(
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ],

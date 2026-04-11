@@ -7,6 +7,7 @@ import 'package:hungry_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:hungry_app/features/auth/data/repo/auth_repo.dart';
 import 'package:hungry_app/features/auth/presentation/view/login_view.dart';
 import 'package:hungry_app/features/auth/presentation/view/signup_view.dart';
+import 'package:hungry_app/features/cart/data/models/user_cart_model.dart';
 import 'package:hungry_app/features/cart/data/repo/cart_repo.dart';
 import 'package:hungry_app/features/cart/ui/cubit/cart_cubit.dart';
 import 'package:hungry_app/features/checkout/view/checkout_view.dart';
@@ -46,14 +47,13 @@ class AppRoutesConfig {
             return MultiBlocProvider(
               providers: [
                 BlocProvider<AuthCubit>(
-                  create: (context) => AuthCubit(AuthRepo())..getProfileData(),
+                  create: (context) => AuthCubit(AuthRepo()),
                 ),
                 BlocProvider<CartCubit>(
                   create: (context) => CartCubit(CartRepo()),
                 ),
                 BlocProvider<HomeProductsCubit>(
-                  create: (context) =>
-                      HomeProductsCubit(HomeRepo()),
+                  create: (context) => HomeProductsCubit(HomeRepo()),
                 ),
               ],
               child: const CustomNavigationBar(),
@@ -82,7 +82,12 @@ class AppRoutesConfig {
         );
 
       case AppRouterPaths.checkoutScreen:
-        return MaterialPageRoute(builder: (_) => const CheckOutView());
+        return MaterialPageRoute(
+          builder: (_) {
+            final UserCartModel userCart = settings.arguments as UserCartModel;
+            return CheckOutView(userCart: userCart,);
+          },
+        );
 
       default:
         return MaterialPageRoute(

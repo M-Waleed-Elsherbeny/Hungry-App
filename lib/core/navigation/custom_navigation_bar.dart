@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
+import 'package:hungry_app/features/auth/data/models/user_model.dart';
 import 'package:hungry_app/features/cart/ui/view/cart_view.dart';
 import 'package:hungry_app/features/home/view/ui/home_view.dart';
 import 'package:hungry_app/features/orders/view/orders_view.dart';
 import 'package:hungry_app/features/profile/view/profile_view.dart';
 
 class CustomNavigationBar extends StatefulWidget {
-  const CustomNavigationBar({super.key});
+  const CustomNavigationBar({super.key, this.userModel});
+  final UserModel? userModel;
 
   @override
   State<CustomNavigationBar> createState() => _CustomNavigationBarState();

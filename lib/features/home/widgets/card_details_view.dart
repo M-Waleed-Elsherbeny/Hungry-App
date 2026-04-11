@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
-import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
@@ -13,8 +12,9 @@ class CardDetailsView extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.rate,
+    required this.price,
   });
-  final String image, title, subtitle, rate;
+  final String image, title, subtitle, rate, price;
 
   @override
   Widget build(BuildContext context) {
@@ -25,22 +25,30 @@ class CardDetailsView extends StatelessWidget {
       shadowColor: AppColors.kPrimaryColor,
       color: AppColors.kWhiteColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.03),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Image.network(image, width: deviceWidth * 0.25),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Image.asset(AppAssets.shadow),
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              SizedBox(
+                width: deviceWidth,
+                child: Image.network(image, height: deviceHeight * 0.12),
+              ),
+              Positioned(
+                top: 5,
+                right: 10,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: const Icon(
+                    CupertinoIcons.heart,
+                    color: AppColors.kRedColor,
+                  ),
                 ),
-              ],
-            ),
-            Column(
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: deviceHeight * 0.02),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomText(
@@ -68,19 +76,18 @@ class CardDetailsView extends StatelessWidget {
                       textStyle: AppTextStyle.textBrown14W400,
                     ),
                     const Spacer(),
-                    GestureDetector(
-                      onTap: () {},
-                      child: const Icon(
-                        CupertinoIcons.heart_fill,
-                        color: AppColors.kRedColor,
+                    CustomText(
+                      text: "\$ $price",
+                      textStyle: AppTextStyle.textGreen20WBold.copyWith(
+                        fontSize: 16,
                       ),
                     ),
                   ],
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

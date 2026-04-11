@@ -5,9 +5,11 @@ import 'package:hungry_app/core/styles/assets/app_assets.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
+import 'package:hungry_app/features/auth/data/models/user_model.dart';
 
 class UserHeader extends StatelessWidget {
-  const UserHeader({super.key});
+  const UserHeader({super.key, this.userModel});
+  final UserModel? userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +29,22 @@ class UserHeader extends StatelessWidget {
               width: deviceWidth * 0.5,
             ),
             heightSpace(deviceHeight * 0.01),
-            const CustomText(
-              text: "Hello, Mohammed",
+            CustomText(
+              text: "Hello, ${userModel?.name ?? "User"}",
               textStyle: AppTextStyle.textGrey18W500,
             ),
           ],
         ),
         const Spacer(),
-        const CircleAvatar(radius: 35, backgroundColor: AppColors.kGreyColor),
+        userModel?.image == null
+            ? const CircleAvatar(
+                radius: 35,
+                backgroundColor: AppColors.kGreyColor,
+              )
+            : CircleAvatar(
+                radius: 35,
+                child: Image.network(userModel!.image!),
+              ),
       ],
     );
   }
