@@ -17,7 +17,7 @@ class HomeRepo {
       final response = await _apiServices.get(
         endPoint: ApiConstants.productsEndPoint,
       );
-      for (var product in response["data"]) {
+      for (var product in response.data["data"]) {
         // log("product: $product");
         products.add(HomeProductModel.fromJson(product));
       }

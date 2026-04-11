@@ -8,7 +8,7 @@ class ApiServices {
     dio = DioHandler.initialDio();
   }
 
-  Future<dynamic> get({
+  Future<Response> get({
     required String endPoint,
     Map<String, dynamic>? headers,
   }) async {
@@ -24,10 +24,10 @@ class ApiServices {
             : {'Content-Type': 'application/json'},
       ),
     );
-    return response.data;
+    return response;
   }
 
-  Future<dynamic> post({
+  Future<Response> post({
     required String endPoint,
     dynamic data,
     Map<String, dynamic>? headers,
@@ -45,10 +45,10 @@ class ApiServices {
             : {'Content-Type': 'application/json'},
       ),
     );
-    return response.data;
+    return response;
   }
 
-  Future<dynamic> put({
+  Future<Response> put({
     required String endPoint,
     dynamic data,
     Map<String, dynamic>? headers,
@@ -67,10 +67,10 @@ class ApiServices {
             : {'Content-Type': 'application/json'},
       ),
     );
-    return response.data;
+    return response;
   }
 
-  Future<dynamic> delete({
+  Future<Response> delete({
     required String endPoint,
     dynamic data,
     Map<String, dynamic>? headers,
@@ -89,6 +89,6 @@ class ApiServices {
             : {'Content-Type': 'application/json'},
       ),
     );
-    return response.data;
+    return response;
   }
 }

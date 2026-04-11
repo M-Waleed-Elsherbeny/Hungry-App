@@ -17,7 +17,7 @@ class ToppingsAndOptionsRepo {
       final response = await _apiServices.get(
         endPoint: ApiConstants.toppingsEndPoint,
       );
-      for (var topping in response["data"]) {
+      for (var topping in response.data["data"]) {
         toppings.add(ToppingsAndOptionsModel.fromJson(topping));
       }
       return Right(toppings);
@@ -34,7 +34,7 @@ class ToppingsAndOptionsRepo {
       final response = await _apiServices.get(
         endPoint: ApiConstants.optionsEndPoint,
       );
-      for (var option in response["data"]) {
+      for (var option in response.data["data"]) {
         options.add(ToppingsAndOptionsModel.fromJson(option));
       }
       return Right(options);

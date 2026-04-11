@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:hungry_app/core/constants/api_constant.dart';
+import 'package:hungry_app/core/errors/custom_exception.dart';
 import 'package:hungry_app/core/errors/failure.dart';
 import 'package:hungry_app/core/networking/api_services.dart';
 import 'package:hungry_app/core/utils/pref_helper.dart';
@@ -20,7 +21,7 @@ class AuthRepo {
         endPoint: ApiConstants.loginEndPoint,
         data: {"email": email, "password": password},
       );
-      final UserModel user = UserModel.fromJson(response["data"]);
+      final UserModel user = UserModel.fromJson(response.data["data"]);
       if (user.token != null) {
         await PrefHelper.saveToken(user.token!);
       }
@@ -28,9 +29,9 @@ class AuthRepo {
     } on DioException catch (error) {
       log("DioException Login: $error");
       return Left(ServerFailure.fromDioException(error));
-    } catch (e) {
+    } on CustomException catch (e) {
       log("Catch Login: $e");
-      return Left(ServerFailure(errMessage: e.toString()));
+      return Left(ServerFailure(errMessage: e.errMessage));
     }
   }
 
@@ -45,7 +46,7 @@ class AuthRepo {
         endPoint: ApiConstants.signUpEndPoint,
         data: {"name": name, "email": email, "password": password},
       );
-      final UserModel user = UserModel.fromJson(response["data"]);
+      final UserModel user = UserModel.fromJson(response.data["data"]);
       if (user.token != null) {
         await PrefHelper.saveToken(user.token!);
       }
@@ -54,9 +55,9 @@ class AuthRepo {
       log("DioException SignUp: $error");
 
       return Left(ServerFailure.fromDioException(error));
-    } catch (e) {
+    } on CustomException catch (e) {
       log("Catch SignUp: $e");
-      return Left(ServerFailure(errMessage: e.toString()));
+      return Left(ServerFailure(errMessage: e.errMessage));
     }
   }
 
@@ -66,14 +67,18 @@ class AuthRepo {
       final response = await _apiServices.get(
         endPoint: ApiConstants.profileEndPoint,
       );
-      final UserModel user = UserModel.fromJson(response["data"]);
-      return Right(user);
+      if (response.statusCode == 200) {
+        final UserModel user = UserModel.fromJson(response.data["data"]);
+        return Right(user);
+      } else {
+        return const Right(null);
+      }
     } on DioException catch (error) {
       log("DioException getProfileData: $error");
       return Left(ServerFailure.fromDioException(error));
-    } catch (e) {
+    } on CustomException catch (e) {
       log("Catch getProfileData: $e");
-      return Left(ServerFailure(errMessage: e.toString()));
+      return Left(ServerFailure(errMessage: e.errMessage));
     }
   }
 
@@ -100,14 +105,14 @@ class AuthRepo {
         endPoint: ApiConstants.updateProfileEndPoint,
         data: formData,
       );
-      final UserModel user = UserModel.fromJson(response["data"]);
+      final UserModel user = UserModel.fromJson(response.data["data"]);
       return Right(user);
     } on DioException catch (error) {
       log("DioException updateProfileData: $error");
       return Left(ServerFailure.fromDioException(error));
-    } catch (e) {
+    } on CustomException catch (e) {
       log("Catch updateProfileData: $e");
-      return Left(ServerFailure(errMessage: e.toString()));
+      return Left(ServerFailure(errMessage: e.errMessage));
     }
   }
 
@@ -120,9 +125,9 @@ class AuthRepo {
     } on DioException catch (error) {
       log("DioException SignUp: $error");
       return Left(ServerFailure.fromDioException(error));
-    } catch (e) {
+    } on CustomException catch (e) {
       log("Catch SignUp: $e");
-      return Left(ServerFailure(errMessage: e.toString()));
+      return Left(ServerFailure(errMessage: e.errMessage));
     }
   }
 }

@@ -65,6 +65,7 @@ class _CardGridViewState extends State<CardGridView> {
                   title: product.name,
                   subtitle: product.description,
                   rate: product.rating,
+                  price: product.price,
                 ),
               );
             },
