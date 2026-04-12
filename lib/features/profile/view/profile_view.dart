@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hungry_app/core/utils/pref_helper.dart';
 import 'package:hungry_app/features/profile/view/guest_profile.dart';
@@ -14,7 +12,7 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  bool user = hasToken;
+  bool hasUser = hasToken;
   @override
   void initState() {
     isUser();
@@ -22,13 +20,12 @@ class _ProfileViewState extends State<ProfileView> {
   }
 
   Future<void> isUser() async {
-    user = await PrefHelper.isUser();
+    hasUser = await PrefHelper.isUser();
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    log("Profile User: $user");
-    return user ? const UserProfile() : const GuestProfile();
+    return hasUser ? const UserProfile() : const GuestProfile();
   }
 }

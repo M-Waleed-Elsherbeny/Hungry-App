@@ -1,13 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hungry_app/core/styles/colors/app_colors.dart';
+import 'package:hungry_app/core/utils/pref_helper.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
-import 'package:hungry_app/features/auth/data/models/user_model.dart';
 import 'package:hungry_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:hungry_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:hungry_app/features/home/widgets/card_grid_view.dart';
 import 'package:hungry_app/features/home/widgets/food_categories.dart';
 import 'package:hungry_app/features/home/widgets/search_bar_view.dart';
 import 'package:hungry_app/features/home/widgets/user_header.dart';
+import 'package:hungry_app/main.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeView extends StatefulWidget {
@@ -18,19 +22,31 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  UserModel? userModel;
-
+  bool hasUser = hasToken;
   @override
   void initState() {
-    context.read<AuthCubit>().getProfileData();
+    isUser();
+    log("hasUser initState: $hasUser");
+    hasUser ? context.read<AuthCubit>().getProfileData() : null;
     super.initState();
+  }
+
+  Future<void> isUser() async {
+    hasUser = await PrefHelper.isUser();
+    log("hasUser isUser: $hasUser");
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
-    return SafeArea(
+    final userModel = context.watch<AuthCubit>().userModel;
+    log("isGuest build: $hasUser");
+    return RefreshIndicator(
+      onRefresh: () => context.read<AuthCubit>().getProfileData(),
+      backgroundColor: AppColors.kPrimaryColor,
+      color: AppColors.kWhiteColor,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.03),
         child: SingleChildScrollView(
@@ -38,15 +54,10 @@ class _HomeViewState extends State<HomeView> {
             children: [
               heightSpace(deviceHeight * 0.03),
               // Header Section
-              BlocConsumer<AuthCubit, AuthState>(
+              BlocBuilder<AuthCubit, AuthState>(
                 buildWhen: (previous, current) =>
-                    current is GetProfileDataSuccess ||
-                    current is GetProfileDataFailed,
-                listener: (context, state) {
-                  if (state is GetProfileDataSuccess) {
-                    userModel = state.user;
-                  }
-                },
+                    current is GetProfileDataSuccess || userModel == null,
+
                 builder: (context, state) {
                   return Skeletonizer(
                     enabled: state is GetProfileDataLoading,

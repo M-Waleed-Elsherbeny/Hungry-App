@@ -24,7 +24,7 @@ class MyBlocObserver extends BlocObserver {
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    log("onChange: $change", name: "bloc: $bloc");
+    log("onChange: $change");
   }
 
   @override

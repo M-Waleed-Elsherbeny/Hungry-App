@@ -14,7 +14,6 @@ class DioHandler {
       dioLogger();
       return dio;
     } else {
-      dioLogger();
       return dio;
     }
   }
@@ -24,7 +23,6 @@ class DioHandler {
       PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
-        responseBody: true,
         responseHeader: true,
         error: true,
         maxWidth: 90,

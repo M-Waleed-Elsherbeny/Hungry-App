@@ -30,7 +30,7 @@ class UserHeader extends StatelessWidget {
             ),
             heightSpace(deviceHeight * 0.01),
             CustomText(
-              text: "Hello, ${userModel?.name ?? "User"}",
+              text: "Hello, ${userModel?.name ?? "Guest"}",
               textStyle: AppTextStyle.textGrey18W500,
             ),
           ],
@@ -39,11 +39,15 @@ class UserHeader extends StatelessWidget {
         userModel?.image == null
             ? const CircleAvatar(
                 radius: 35,
-                backgroundColor: AppColors.kGreyColor,
+                backgroundImage: AssetImage(AppAssets.mushroomBurger),
+                backgroundColor: Colors.transparent,
               )
             : CircleAvatar(
                 radius: 35,
-                child: Image.network(userModel!.image!),
+                backgroundImage: NetworkImage(userModel!.image!),
+                onBackgroundImageError: (exception, stackTrace) {
+                  const Icon(Icons.error, color: AppColors.kPrimaryColor);
+                },
               ),
       ],
     );

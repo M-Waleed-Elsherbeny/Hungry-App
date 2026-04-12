@@ -1,11 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hungry_app/features/cart/data/models/cart_model.dart';
+import 'package:hungry_app/features/cart/data/models/user_cart_model.dart';
 import 'package:hungry_app/features/cart/data/repo/cart_repo.dart';
 import 'package:hungry_app/features/cart/ui/cubit/cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
   final CartRepo _cartRepo;
   CartCubit(this._cartRepo) : super(CartInitial());
+  UserCartModel? cartModel;
 
   Future<void> addToCart({required CartItemsModel items}) async {
     emit(AddToCartLoading());
@@ -21,7 +23,10 @@ class CartCubit extends Cubit<CartState> {
     final response = await _cartRepo.getCart();
     response.fold(
       (error) => emit(GetUserCartFailure(errMsg: error.errMessage)),
-      (cart) => emit(GetUserCartSuccess(cartModel: cart)),
+      (cart) {
+        cartModel = cart;
+        emit(GetUserCartSuccess(cartModel: cart));
+      },
     );
   }
 

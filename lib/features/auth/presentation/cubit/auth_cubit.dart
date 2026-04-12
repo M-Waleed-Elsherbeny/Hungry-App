@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hungry_app/features/auth/data/models/user_model.dart';
 import 'package:hungry_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:hungry_app/features/auth/data/repo/auth_repo.dart';
 
@@ -6,13 +7,17 @@ class AuthCubit extends Cubit<AuthState> {
   final AuthRepo _authRepo;
   AuthCubit(this._authRepo) : super(AuthInitial());
 
+  UserModel? userModel;
+
   Future<void> login({required String email, required String password}) async {
     emit(AuthLoginLoading());
     final response = await _authRepo.login(email: email, password: password);
-    response.fold(
-      (error) => emit(AuthLoginFailed(message: error.errMessage)),
-      (user) => emit(AuthLoginSuccess(user: user!)),
-    );
+    response.fold((error) => emit(AuthLoginFailed(message: error.errMessage)), (
+      user,
+    ) {
+      userModel = user;
+      emit(AuthLoginSuccess(user: user!));
+    });
   }
 
   Future<void> signUp({
@@ -29,7 +34,10 @@ class AuthCubit extends Cubit<AuthState> {
     );
     response.fold(
       (error) => emit(AuthSignUpFailed(message: error.errMessage)),
-      (user) => emit(AuthSignUpSuccess(user: user!)),
+      (user) {
+        userModel = user;
+        emit(AuthSignUpSuccess(user: user!));
+      },
     );
   }
 
@@ -38,7 +46,10 @@ class AuthCubit extends Cubit<AuthState> {
     final response = await _authRepo.getProfileData();
     response.fold(
       (error) => emit(GetProfileDataFailed(message: error.errMessage)),
-      (user) => emit(GetProfileDataSuccess(user: user!)),
+      (user) {
+        userModel = user;
+        emit(GetProfileDataSuccess(user: user!));
+      },
     );
   }
 
@@ -61,7 +72,10 @@ class AuthCubit extends Cubit<AuthState> {
     );
     response.fold(
       (error) => emit(UpdateProfileDataFailed(message: error.errMessage)),
-      (user) => emit(UpdateProfileDataSuccess(user: user!)),
+      (user) {
+        userModel = user;
+        emit(UpdateProfileDataSuccess(user: user!));
+      },
     );
   }
 
