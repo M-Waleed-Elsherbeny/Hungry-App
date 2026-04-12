@@ -85,7 +85,10 @@ class AppRoutesConfig {
         return MaterialPageRoute(
           builder: (_) {
             final UserCartModel userCart = settings.arguments as UserCartModel;
-            return CheckOutView(userCart: userCart,);
+            return BlocProvider<AuthCubit>(
+              create: (context) => AuthCubit(AuthRepo()),
+              child: CheckOutView(userCart: userCart),
+            );
           },
         );
 

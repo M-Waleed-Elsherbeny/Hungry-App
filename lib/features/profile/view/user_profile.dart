@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
-import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hungry_app/core/components/custom_button.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
@@ -33,7 +32,6 @@ class _UserProfileState extends State<UserProfile> {
   TextEditingController visaController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   String selectedValue = "";
-  UserModel? user;
   String? selectedImage;
 
   Future<void> pickImage() async {
@@ -56,16 +54,9 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   void initState() {
-    getProfileData();
+    context.read<AuthCubit>().getProfileData();
     log(selectedImage ?? "No image");
     super.initState();
-  }
-
-  Future<void> getProfileData() async {
-    await context.read<AuthCubit>().getProfileData().then((_) {
-      log(user?.name ?? "No User");
-      setState(() {});
-    });
   }
 
   @override
@@ -80,7 +71,9 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.sizeOf(context).width;
     final deviceHeight = MediaQuery.sizeOf(context).height;
+    UserModel? user = context.watch<AuthCubit>().userModel;
     return BlocConsumer<AuthCubit, AuthState>(
+      buildWhen: (previous, current) => current is GetProfileDataSuccess,
       listener: (context, state) {
         if (state is GetProfileDataFailed) {
           customSnackBar(context, state.message);
@@ -99,14 +92,15 @@ class _UserProfileState extends State<UserProfile> {
           user = state.user;
           nameController.text = user!.name;
           emailController.text = user!.email;
-          addressController.text = user?.address == null
+          addressController.text = user?.address?.isEmpty ?? true
               ? "No Address Added Yet..."
               : user!.address!;
-          visaController.text = user?.visa == null
+          visaController.text = user?.visa?.isEmpty ?? true
               ? "**** **** 5555"
               : user!.visa!;
-          phoneController.text = user?.address ?? "0123456789";
-          setState(() {});
+          phoneController.text = user?.address?.isEmpty ?? true
+              ? "0123456789"
+              : user!.address!;
         }
       },
       builder: (context, state) {
@@ -130,22 +124,22 @@ class _UserProfileState extends State<UserProfile> {
                         height: deviceHeight * 0.15,
                         decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: selectedImage != null
-                            ? Image.file(
-                                File(selectedImage!),
-                                fit: BoxFit.contain,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    Icon(
+                            ? CircleAvatar(
+                                radius: 35,
+                                backgroundImage: NetworkImage(user!.image!),
+                                onBackgroundImageError:
+                                    (exception, stackTrace) => Icon(
                                       Icons.person,
                                       size: deviceHeight * 0.1,
                                       color: AppColors.kPrimaryColor,
                                     ),
                               )
                             : user?.image != null
-                            ? Image.network(
-                                user!.image!,
-                                fit: BoxFit.contain,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    Icon(
+                            ? CircleAvatar(
+                                radius: 35,
+                                backgroundImage: NetworkImage(user!.image!),
+                                onBackgroundImageError:
+                                    (exception, stackTrace) => Icon(
                                       Icons.person,
                                       size: deviceHeight * 0.1,
                                       color: AppColors.kPrimaryColor,
@@ -210,17 +204,20 @@ class _UserProfileState extends State<UserProfile> {
                       padding: EdgeInsets.symmetric(
                         horizontal: deviceWidth * 0.05,
                       ),
-                      child: CheckoutPaymentMethod(
-                        paymentMethod: "Debit card",
-                        paymentImage: AppAssets.visaMethod,
-                        radioValue: "Visa",
-                        radioGroupValue: selectedValue,
-                        onChanged: (value) =>
-                            setState(() => selectedValue = value!),
-                        onTap: () => setState(() => selectedValue = "Visa"),
-                        tileColor: Colors.blue.shade200,
-                        isVisa: true,
-                      ),
+                      child: user?.visa?.isEmpty ?? true
+                          ? const SizedBox()
+                          : CheckoutPaymentMethod(
+                              paymentMethod: "Debit card",
+                              paymentImage: AppAssets.visaMethod,
+                              radioValue: "Visa",
+                              radioGroupValue: selectedValue,
+                              onChanged: (value) =>
+                                  setState(() => selectedValue = value!),
+                              onTap: () =>
+                                  setState(() => selectedValue = "Visa"),
+                              tileColor: Colors.blue.shade200,
+                              isVisa: true,
+                            ),
                     ),
                     heightSpace(deviceHeight * 0.3),
                   ],
@@ -253,21 +250,23 @@ class _UserProfileState extends State<UserProfile> {
                 CustomButton(
                   backgroundColor: AppColors.kLightWhiteColor,
                   borderColor: AppColors.kPrimaryColor,
+                  onTap: state is AuthLogoutLoading
+                      ? null
+                      : () {
+                          context.read<AuthCubit>().logout().then((_) {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              AppRouterPaths.loginScreen,
+                              (root) => false,
+                            );
+                          });
+                        },
                   child: state is AuthLogoutLoading
                       ? customLoading(color: AppColors.kPrimaryColor)
                       : const CustomText(
                           text: "Logout",
                           textStyle: AppTextStyle.textGreen18W500,
                         ),
-                  onTap: () {
-                    context.read<AuthCubit>().logout().then((_) {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        AppRouterPaths.loginScreen,
-                        (root) => false,
-                      );
-                    });
-                  },
                 ),
               ],
             ),

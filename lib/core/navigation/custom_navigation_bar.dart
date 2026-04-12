@@ -83,22 +83,19 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             color: AppColors.kGreyColor,
             size: 20,
           ),
-
           unselectedItemColor: Colors.transparent,
-
           onTap: (index) {
             setState(() {
               currentIndex = index;
-              controller.jumpToPage(index);
+              // controller.jumpToPage(index);
             });
           },
         ),
       ),
 
       body: SafeArea(
-        child: PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: controller,
+        child: IndexedStack(
+          index: currentIndex,
           children: pages,
         ),
       ),

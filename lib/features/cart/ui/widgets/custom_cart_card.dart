@@ -66,48 +66,45 @@ class CustomCartCard extends StatelessWidget {
                       ),
                     ),
                     heightSpace(deviceHeight * 0.01),
-                    SizedBox(
-                      width: deviceWidth * 0.4,
-                      child: Row(
-                        children: [
-                          Row(
-                            children: List.generate(toppingsList.length, (
-                              index,
-                            ) {
-                              return Container(
-                                height: deviceHeight * 0.03,
-                                margin: EdgeInsets.only(
-                                  right: deviceHeight * 0.003,
-                                ),
-                                // decoration: const BoxDecoration(
-                                //   color: Colors.red,
-                                // ),
-                                child: Image.network(
-                                  toppingsList[index]?.image ?? "",
-                                  width: deviceWidth * 0.05,
-                                ),
-                              );
-                            }),
-                          ),
-                          Row(
-                            children: List.generate(optionList.length, (index) {
-                              return Container(
-                                height: deviceHeight * 0.03,
-                                margin: EdgeInsets.only(
-                                  right: deviceHeight * 0.003,
-                                ),
-                                // decoration: const BoxDecoration(
-                                //   color: Colors.red,
-                                // ),
-                                child: Image.network(
-                                  optionList[index]?.image ?? "",
-                                  width: deviceWidth * 0.05,
-                                ),
-                              );
-                            }),
-                          ),
-                        ],
-                      ),
+                    Row(
+                      children: [
+                        /// Toppings Images
+                        Row(
+                          children: List.generate(toppingsList.length, (index) {
+                            return Container(
+                              height: deviceHeight * 0.03,
+                              margin: EdgeInsets.only(
+                                right: deviceHeight * 0.003,
+                              ),
+                              // decoration: const BoxDecoration(
+                              //   color: Colors.red,
+                              // ),
+                              child: Image.network(
+                                toppingsList[index]?.image ?? "",
+                                width: deviceWidth * 0.05,
+                              ),
+                            );
+                          }),
+                        ),
+                        /// Option Images
+                        Row(
+                          children: List.generate(optionList.length, (index) {
+                            return Container(
+                              height: deviceHeight * 0.03,
+                              margin: EdgeInsets.only(
+                                right: deviceHeight * 0.003,
+                              ),
+                              // decoration: const BoxDecoration(
+                              //   color: Colors.red,
+                              // ),
+                              child: Image.network(
+                                optionList[index]?.image ?? "",
+                                width: deviceWidth * 0.05,
+                              ),
+                            );
+                          }),
+                        ),
+                      ],
                     ),
                     heightSpace(deviceHeight * 0.01),
                   ],
