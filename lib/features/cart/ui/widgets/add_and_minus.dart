@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
@@ -25,8 +26,8 @@ class AddAndMinus extends StatelessWidget {
         GestureDetector(
           onTap: onTapMinusButton,
           child: Container(
-            height: deviceHeight * 0.04,
-            width: deviceHeight * 0.04,
+            height: 40.w,
+            width: 40.w,
             decoration: BoxDecoration(
               color: AppColors.kPrimaryColor,
               borderRadius: BorderRadius.circular(10),
@@ -46,8 +47,8 @@ class AddAndMinus extends StatelessWidget {
         GestureDetector(
           onTap: onTapAddButton,
           child: Container(
-            height: deviceHeight * 0.04,
-            width: deviceHeight * 0.04,
+            height: 40.w,
+            width: 40.w,
             decoration: BoxDecoration(
               color: AppColors.kPrimaryColor,
               borderRadius: BorderRadius.circular(10),

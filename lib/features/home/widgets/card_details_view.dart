@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
@@ -64,10 +65,10 @@ class CardDetailsView extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {},
-                      child: const Icon(
+                      child:  Icon(
                         CupertinoIcons.star_fill,
                         color: Colors.amber,
-                        size: 20,
+                        size: 16.h,
                       ),
                     ),
                     widthSpace(deviceWidth * 0.01),
@@ -79,7 +80,7 @@ class CardDetailsView extends StatelessWidget {
                     CustomText(
                       text: "\$ $price",
                       textStyle: AppTextStyle.textGreen20WBold.copyWith(
-                        fontSize: 16,
+                        fontSize: 16.sp,
                       ),
                     ),
                   ],

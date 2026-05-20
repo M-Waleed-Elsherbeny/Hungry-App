@@ -29,7 +29,7 @@ class SpicySlider extends StatelessWidget {
         const Spacer(),
         Column(
           children: [
-            const Text.rich(
+             Text.rich(
               TextSpan(
                 text: "Customize ",
                 style: AppTextStyle.textBrown16W600,

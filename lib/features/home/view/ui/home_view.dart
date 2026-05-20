@@ -1,12 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/core/utils/pref_helper.dart';
 import 'package:hungry_app/core/utils/spacer.dart';
 import 'package:hungry_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:hungry_app/features/auth/presentation/cubit/auth_state.dart';
+import 'package:hungry_app/features/home/data/models/home_product_model.dart';
+import 'package:hungry_app/features/home/view/cubit/home_products_cubit.dart';
 import 'package:hungry_app/features/home/widgets/card_grid_view.dart';
 import 'package:hungry_app/features/home/widgets/food_categories.dart';
 import 'package:hungry_app/features/home/widgets/search_bar_view.dart';
@@ -22,37 +23,36 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  List<HomeProductModel?>? products;
+  TextEditingController searchController = TextEditingController();
   bool hasUser = hasToken;
   @override
   void initState() {
     isUser();
-    log("hasUser initState: $hasUser");
     hasUser ? context.read<AuthCubit>().getProfileData() : null;
+
     super.initState();
   }
 
   Future<void> isUser() async {
     hasUser = await PrefHelper.isUser();
-    log("hasUser isUser: $hasUser");
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    double deviceHeight = MediaQuery.of(context).size.height;
-    double deviceWidth = MediaQuery.of(context).size.width;
     final userModel = context.watch<AuthCubit>().userModel;
-    log("isGuest build: $hasUser");
+    final allProducts = context.watch<HomeProductsCubit>().allProducts;
     return RefreshIndicator(
       onRefresh: () => context.read<AuthCubit>().getProfileData(),
       backgroundColor: AppColors.kPrimaryColor,
       color: AppColors.kWhiteColor,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.03),
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              heightSpace(deviceHeight * 0.03),
+              heightSpace(10),
               // Header Section
               BlocBuilder<AuthCubit, AuthState>(
                 buildWhen: (previous, current) =>
@@ -65,15 +65,28 @@ class _HomeViewState extends State<HomeView> {
                   );
                 },
               ),
-              heightSpace(deviceHeight * 0.03),
+              heightSpace(10),
               // Search Bar
-              const SearchBarView(),
-              heightSpace(deviceHeight * 0.03),
+              SearchBarView(
+                controller: searchController,
+                onChanged: (value) {
+                  setState(() {
+                    products = allProducts
+                        .where(
+                          (q) => q!.name.toLowerCase().contains(
+                            value.toLowerCase(),
+                          ),
+                        )
+                        .toList();
+                  });
+                },
+              ),
+              heightSpace(10),
               // Categories
               const FoodCategories(),
-              heightSpace(deviceHeight * 0.03),
+              heightSpace(15),
               // Food Items
-              const CardGridView(),
+              CardGridView(products: products ?? allProducts),
             ],
           ),
         ),

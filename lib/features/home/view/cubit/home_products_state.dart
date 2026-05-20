@@ -7,7 +7,7 @@ final class HomeProductsInitial extends HomeProductsState {}
 final class GetAllProductsLoading extends HomeProductsState {}
 
 final class GetAllProductsSuccess extends HomeProductsState {
-  final List<HomeProductModel>? products;
+  final List<HomeProductModel?> products;
   GetAllProductsSuccess({required this.products});
 }
 

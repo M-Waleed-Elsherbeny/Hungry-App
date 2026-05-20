@@ -71,7 +71,7 @@ class _SignUpViewState extends State<SignUpView> {
                 ),
               ),
               heightSpace(deviceHeight * 0.02),
-              const CustomText(
+               CustomText(
                 text: "Welcome Back, Discover The Best Food!",
                 textStyle: AppTextStyle.textBrown14W400,
               ),
@@ -164,7 +164,7 @@ class _SignUpViewState extends State<SignUpView> {
                               onTap: validSignUp,
                               child: state is AuthSignUpLoading
                                   ? customLoading()
-                                  : const CustomText(
+                                  :  CustomText(
                                       text: "Create Account",
                                       textStyle: AppTextStyle.textWhite20WBold,
                                     ),

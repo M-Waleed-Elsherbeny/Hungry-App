@@ -9,14 +9,14 @@ import 'package:hungry_app/features/home/widgets/card_details_view.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class CardGridView extends StatefulWidget {
-  const CardGridView({super.key});
+  const CardGridView({super.key, required this.products});
+  final List<HomeProductModel?> products;
 
   @override
   State<CardGridView> createState() => _CardGridViewState();
 }
 
 class _CardGridViewState extends State<CardGridView> {
-  List<HomeProductModel?> products = [];
   @override
   void initState() {
     context.read<HomeProductsCubit>().getAllProducts();
@@ -28,17 +28,15 @@ class _CardGridViewState extends State<CardGridView> {
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
     return BlocConsumer<HomeProductsCubit, HomeProductsState>(
+      buildWhen: (previous, current) => current is GetAllProductsSuccess,
       listener: (context, state) {
         if (state is GetAllProductsError) {
           customSnackBar(context, state.errMsg);
-        } else if (state is GetAllProductsSuccess) {
-          products = state.products!;
-          setState(() {});
         }
       },
       builder: (context, state) {
         return Skeletonizer(
-          enabled: products.isEmpty || state is GetAllProductsLoading,
+          enabled: widget.products.isEmpty || state is GetAllProductsLoading,
           child: GridView.builder(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
@@ -49,9 +47,9 @@ class _CardGridViewState extends State<CardGridView> {
               mainAxisSpacing: deviceHeight * 0.02,
               childAspectRatio: deviceWidth / (deviceHeight * 0.55),
             ),
-            itemCount: products.length,
+            itemCount: widget.products.length,
             itemBuilder: (_, index) {
-              final product = products[index];
+              final product = widget.products[index];
               return InkWell(
                 onTap: () {
                   Navigator.pushNamed(

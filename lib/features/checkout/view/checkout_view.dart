@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry_app/core/components/custom_back_button.dart';
 import 'package:hungry_app/core/components/custom_button.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
@@ -59,7 +60,7 @@ class _CheckOutViewState extends State<CheckOutView> {
                   CustomText(
                     text: "Order summary",
                     textStyle: AppTextStyle.textBrown16W600.copyWith(
-                      fontSize: 20,
+                      fontSize: 20.sp,
                     ),
                   ),
                   heightSpace(deviceHeight * 0.02),
@@ -75,7 +76,7 @@ class _CheckOutViewState extends State<CheckOutView> {
                   CustomText(
                     text: "Payment methods",
                     textStyle: AppTextStyle.textBrown16W600.copyWith(
-                      fontSize: 20,
+                      fontSize: 20.sp,
                     ),
                   ),
                   heightSpace(deviceHeight * 0.03),
@@ -118,7 +119,7 @@ class _CheckOutViewState extends State<CheckOutView> {
                         child: CustomText(
                           text: "Save card details for future payments",
                           textStyle: AppTextStyle.textGrey16W400.copyWith(
-                            fontSize: 14,
+                            fontSize: 14.sp,
                           ),
                         ),
                       ),
@@ -156,7 +157,7 @@ class _CheckOutViewState extends State<CheckOutView> {
                           AppAssets.success,
                           width: deviceWidth * 0.3,
                         ),
-                        const CustomText(
+                         CustomText(
                           text: "Payment successful",
                           textStyle: AppTextStyle.textBrown16W600,
                         ),
@@ -166,7 +167,7 @@ class _CheckOutViewState extends State<CheckOutView> {
                             text:
                                 "Your payment was successful.\nA receipt for this purchase has \nbeen sent to your email.",
                             textStyle: AppTextStyle.textGrey16W400.copyWith(
-                              fontSize: 14,
+                              fontSize: 14.sp,
                             ),
                           ),
                         ),

@@ -9,10 +9,10 @@ import 'package:hungry_app/features/home/data/models/home_product_model.dart';
 
 class HomeRepo {
   final ApiServices _apiServices = ApiServices();
-  List<HomeProductModel> products = [];
+  List<HomeProductModel?> products = [];
 
   /// Get All Products
-  Future<Either<Failure, List<HomeProductModel>?>> getAllProducts() async {
+  Future<Either<Failure, List<HomeProductModel?>>> getAllProducts() async {
     try {
       final response = await _apiServices.get(
         endPoint: ApiConstants.productsEndPoint,

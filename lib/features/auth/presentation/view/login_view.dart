@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hungry_app/core/components/custom_button.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
@@ -64,7 +65,7 @@ class _LoginViewState extends State<LoginView> {
             heightSpace(deviceHeight * 0.02),
             CustomText(
               text: "Welcome Back, Discover The Best Food!",
-              textStyle: AppTextStyle.textBrown16W600.copyWith(fontSize: 14),
+              textStyle: AppTextStyle.textBrown16W600.copyWith(fontSize: 14.sp),
             ),
             heightSpace(deviceHeight * 0.06),
             Expanded(
@@ -133,7 +134,7 @@ class _LoginViewState extends State<LoginView> {
                               onTap: validLogin,
                               child: state is AuthLoginLoading
                                   ? customLoading()
-                                  : const CustomText(
+                                  :  CustomText(
                                       text: "Login",
                                       textStyle: AppTextStyle.textWhite20WBold,
                                     ),
@@ -146,7 +147,7 @@ class _LoginViewState extends State<LoginView> {
                                   child: CustomButton(
                                     title: "New Account",
                                     textStyle: AppTextStyle.textGreen16W500
-                                        .copyWith(fontSize: 14),
+                                        .copyWith(fontSize: 14.sp),
                                     backgroundColor: AppColors.kLightWhiteColor,
                                     onTap: () => Navigator.pushReplacementNamed(
                                       context,
@@ -159,7 +160,7 @@ class _LoginViewState extends State<LoginView> {
                                   child: CustomButton(
                                     title: "As a Guest ?",
                                     textStyle: AppTextStyle.textGreen16W500
-                                        .copyWith(fontSize: 14),
+                                        .copyWith(fontSize: 14.sp),
                                     backgroundColor: AppColors.kLightWhiteColor,
                                     onTap: () => Navigator.pushReplacementNamed(
                                       context,
