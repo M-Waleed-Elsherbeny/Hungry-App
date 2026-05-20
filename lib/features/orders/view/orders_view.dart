@@ -44,15 +44,15 @@ class OrderView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const CustomText(
+                             CustomText(
                               text: "Fried Chicken Burger",
                               textStyle: AppTextStyle.textBrown16W600,
                             ),
-                            const CustomText(
+                             CustomText(
                               text: "Qty: 3",
                               textStyle: AppTextStyle.textBrown14W400,
                             ),
-                            const CustomText(
+                             CustomText(
                               text: "Price: 20\$",
                               textStyle: AppTextStyle.textBrown14W400,
                             ),

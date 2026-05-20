@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry_app/core/components/custom_button.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
@@ -130,7 +131,7 @@ class _UserProfileState extends State<UserProfile> {
                                 onBackgroundImageError:
                                     (exception, stackTrace) => Icon(
                                       Icons.person,
-                                      size: deviceHeight * 0.1,
+                                      size: 16.sp,
                                       color: AppColors.kPrimaryColor,
                                     ),
                               )
@@ -141,13 +142,13 @@ class _UserProfileState extends State<UserProfile> {
                                 onBackgroundImageError:
                                     (exception, stackTrace) => Icon(
                                       Icons.person,
-                                      size: deviceHeight * 0.1,
+                                      size: 16.sp,
                                       color: AppColors.kPrimaryColor,
                                     ),
                               )
                             : Icon(
                                 Icons.person,
-                                size: deviceHeight * 0.1,
+                                size: 16.sp,
                                 color: AppColors.kPrimaryColor,
                               ),
                       ),
@@ -242,7 +243,7 @@ class _UserProfileState extends State<UserProfile> {
                   onTap: updateProfileData,
                   child: state is UpdateProfileDataLoading
                       ? customLoading()
-                      : const CustomText(
+                      :  CustomText(
                           text: "Edit Profile",
                           textStyle: AppTextStyle.textWhite16W500,
                         ),
@@ -263,7 +264,7 @@ class _UserProfileState extends State<UserProfile> {
                         },
                   child: state is AuthLogoutLoading
                       ? customLoading(color: AppColors.kPrimaryColor)
-                      : const CustomText(
+                      :  CustomText(
                           text: "Logout",
                           textStyle: AppTextStyle.textGreen18W500,
                         ),

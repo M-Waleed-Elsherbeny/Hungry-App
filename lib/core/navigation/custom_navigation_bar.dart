@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 import 'package:hungry_app/features/auth/data/models/user_model.dart';
 import 'package:hungry_app/features/cart/ui/view/cart_view.dart';
@@ -69,19 +70,19 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           items: items,
           type: BottomNavigationBarType.fixed,
           currentIndex: currentIndex,
-          selectedIconTheme: const IconThemeData(
+          selectedIconTheme: IconThemeData(
             color: AppColors.kWhiteColor,
-            size: 25,
+            size: 25.w,
           ),
           selectedItemColor: AppColors.kWhiteColor,
-          selectedLabelStyle: const TextStyle(
+          selectedLabelStyle: TextStyle(
             color: AppColors.kWhiteColor,
-            fontSize: 14,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w500,
           ),
-          unselectedIconTheme: const IconThemeData(
+          unselectedIconTheme: IconThemeData(
             color: AppColors.kGreyColor,
-            size: 20,
+            size: 20.w,
           ),
           unselectedItemColor: Colors.transparent,
           onTap: (index) {
@@ -94,10 +95,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
       ),
 
       body: SafeArea(
-        child: IndexedStack(
-          index: currentIndex,
-          children: pages,
-        ),
+        child: IndexedStack(index: currentIndex, children: pages),
       ),
     );
   }

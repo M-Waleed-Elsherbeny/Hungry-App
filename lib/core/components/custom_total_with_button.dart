@@ -48,11 +48,11 @@ class CustomTotalWithButton extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomText(
+               CustomText(
                 text: "Total",
                 textStyle: AppTextStyle.textBrown16W600,
               ),
-              heightSpace(deviceHeight * 0.01),
+              heightSpace(10),
               CustomText(
                 text: "\$ $totalPrice",
                 textStyle: AppTextStyle.textGreen20WBold,
@@ -80,7 +80,7 @@ class CustomTotalWithButton extends StatelessWidget {
               ],
             ),
           ),
-          heightSpace(deviceHeight * 0.1),
+          heightSpace(20),
         ],
       ),
     );

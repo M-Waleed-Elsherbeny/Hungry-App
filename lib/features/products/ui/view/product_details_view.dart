@@ -108,7 +108,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const CustomText(
+                        CustomText(
                           text: "Toppings",
                           textStyle: AppTextStyle.textBrown16W600,
                         ),
@@ -144,7 +144,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                           ),
                         ),
                         heightSpace(deviceHeight * 0.02),
-                        const CustomText(
+                        CustomText(
                           text: "Side Options",
                           textStyle: AppTextStyle.textBrown16W600,
                         ),

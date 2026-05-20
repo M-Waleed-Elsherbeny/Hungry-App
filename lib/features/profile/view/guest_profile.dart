@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry_app/core/components/custom_button.dart';
 import 'package:hungry_app/core/components/custom_text.dart';
 import 'package:hungry_app/core/navigation/router/app_router_paths.dart';
@@ -15,14 +16,14 @@ class GuestProfile extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const CustomText(
+             CustomText(
               text: "You Must Login To View Profile :)",
               textStyle: AppTextStyle.textBrown18W700,
             ),
             CustomButton(
               title: "Login",
               textStyle: AppTextStyle.textWhite20WBold,
-              minimumSize: const Size(double.infinity, 50),
+              minimumSize: Size(double.infinity, 50.h),
               onTap: () {
                 Navigator.pushNamedAndRemoveUntil(
                   context,

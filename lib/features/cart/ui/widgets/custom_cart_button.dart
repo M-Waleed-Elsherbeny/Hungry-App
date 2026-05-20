@@ -21,7 +21,7 @@ class CustomCartButton extends StatelessWidget {
         minimumSize: Size(deviceWidth * 0.35, deviceHeight * 0.05),
         // minimumSize: const Size(150, 50),
       ),
-      child: const CustomText(
+      child:  CustomText(
         text: "Remove",
         textStyle: AppTextStyle.textWhite16W500,
       ),

@@ -1,89 +1,90 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 
 class AppTextStyle {
-  static const TextStyle textGreen20WBold = TextStyle(
+  static TextStyle textGreen20WBold = TextStyle(
     color: AppColors.kPrimaryColor,
-    fontSize: 20,
+    fontSize: 20.sp,
     fontWeight: FontWeight.bold,
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textGreen18W500 = TextStyle(
+  static TextStyle textGreen18W500 = TextStyle(
     color: AppColors.kPrimaryColor,
-    fontSize: 18,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w500,
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textGreen16W500 = TextStyle(
+  static TextStyle textGreen16W500 = TextStyle(
     color: AppColors.kPrimaryColor,
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w500,
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textBrown16W600 = TextStyle(
+  static TextStyle textBrown16W600 = TextStyle(
     color: AppColors.kBrownColor,
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w600,
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textBrown18W700 = TextStyle(
+  static TextStyle textBrown18W700 = TextStyle(
     color: AppColors.kBrownColor,
-    fontSize: 18,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w700,
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textBrown16W400 = TextStyle(
+  static TextStyle textBrown16W400 = TextStyle(
     color: AppColors.kBrownColor,
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w400,
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textBrown14W400 = TextStyle(
+  static TextStyle textBrown14W400 = TextStyle(
     color: AppColors.kBrownColor,
-    fontSize: 14,
+    fontSize: 14.sp,
     fontWeight: FontWeight.w400,
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textWhite20WBold = TextStyle(
+  static TextStyle textWhite20WBold = TextStyle(
     color: AppColors.kWhiteColor,
-    fontSize: 20,
+    fontSize: 20.sp,
     fontWeight: FontWeight.bold,
 
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textWhite14W600 = TextStyle(
+  static TextStyle textWhite14W600 = TextStyle(
     color: AppColors.kWhiteColor,
-    fontSize: 14,
+    fontSize: 14.sp,
     fontWeight: FontWeight.w600,
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textWhite16W500 = TextStyle(
+  static TextStyle textWhite16W500 = TextStyle(
     color: AppColors.kWhiteColor,
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w500,
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textWhite14W400 = TextStyle(
+  static TextStyle textWhite14W400 = TextStyle(
     color: AppColors.kWhiteColor,
-    fontSize: 14,
+    fontSize: 14.sp,
     fontWeight: FontWeight.w400,
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textWhite12W500 = TextStyle(
+  static TextStyle textWhite12W500 = TextStyle(
     color: AppColors.kWhiteColor,
-    fontSize: 12,
+    fontSize: 12.sp,
     fontWeight: FontWeight.w500,
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textGrey18W500 = TextStyle(
+  static TextStyle textGrey18W500 = TextStyle(
     color: AppColors.kGreyColor,
-    fontSize: 18,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w500,
     overflow: TextOverflow.ellipsis,
   );
-  static const TextStyle textGrey16W400 = TextStyle(
+  static TextStyle textGrey16W400 = TextStyle(
     color: AppColors.kGreyColor,
-    fontSize: 16,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w400,
     overflow: TextOverflow.ellipsis,
   );

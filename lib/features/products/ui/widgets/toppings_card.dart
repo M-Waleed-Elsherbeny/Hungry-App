@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry_app/core/styles/fonts/app_text_style.dart';
 import 'package:hungry_app/core/styles/colors/app_colors.dart';
 
@@ -72,7 +73,7 @@ class ToppingsCard extends StatelessWidget {
                               isSelected
                                   ? Icons.check_circle
                                   : Icons.add_outlined,
-                              size: 15,
+                              size: 15.w,
                               color: isSelected
                                   ? AppColors.kPrimaryColor
                                   : AppColors.kWhiteColor,

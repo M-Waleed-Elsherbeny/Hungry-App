@@ -123,7 +123,7 @@ class _CartViewState extends State<CartView> {
                         },
                         itemCount: userCart.items.length,
                       )
-                    : const Center(
+                    :  Center(
                         child: CustomText(
                           text: "Your Cart is Empty...",
                           textStyle: AppTextStyle.textBrown18W700,
